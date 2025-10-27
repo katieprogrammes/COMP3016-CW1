@@ -39,3 +39,7 @@
 
 # debug information files
 *.dwo
+/.vs/COMP3016-CW1/FileContentIndex
+/.vs/COMP3016-CW1/v17/ipch/AutoPCH
+/.vs/COMP3016-CW1/v17
+/COMP3016-CW1/x64/Debug
