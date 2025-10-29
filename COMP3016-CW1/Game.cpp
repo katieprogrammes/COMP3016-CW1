@@ -47,7 +47,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	//New Player
 
-	player.addComponent<PositionComponent>(100,500); //Start Position
+	player.addComponent<PositionComponent>(0,0); //Start Position
 	player.addComponent<SpriteComponent>("Assets/Missy.png");
 
 }
@@ -70,6 +70,11 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
+
+	if (player.getComponent<PositionComponent>().x() > 100)
+	{
+		player.getComponent<SpriteComponent>().setTex("Assets/Asta.png");
+	}
 }
 
 void Game::render()
