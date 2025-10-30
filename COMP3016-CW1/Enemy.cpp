@@ -52,15 +52,15 @@ bool Enemy::isDead()
 {
 	return HP == 0;
 }
-int Enemy::getHP()
+int Enemy::getHP() const
 {
 	return HP;
 }
-int Enemy::getMaxHP()
+int Enemy::getMaxHP() const
 {
 	return maxHP;
 }
-AttackType Enemy::getType()
+AttackType Enemy::getType() const
 {
 	return enemyType;
 }

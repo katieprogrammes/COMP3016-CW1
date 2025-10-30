@@ -28,11 +28,11 @@ public:
 	// Checks if the character is dead
 	bool isDead();
 
-	int getHP();
+	int getHP() const;
 
-	int getMaxHP();
+	int getMaxHP() const;
 
-	AttackType getType();
+	AttackType getType() const;
 
 private:
 	bool isProtected;
