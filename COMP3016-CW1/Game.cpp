@@ -49,6 +49,20 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 		return;
 	}
+	SDL_Surface* tempSurface = IMG_Load("Assets/Witcharella.png"); // Replace with your actual image path
+	if (!tempSurface) {
+		std::cout << "Failed to load player image: " << IMG_GetError() << std::endl;
+		isRunning = false;
+		return;
+	}
+	playerTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+	SDL_FreeSurface(tempSurface);
+
+	// Set position and size on screen
+	playerRect.x = 50;  // X position
+	playerRect.y = 150; // Y position
+	playerRect.w = 180;  // Width of image
+	playerRect.h = 296;  // Height of image
 
 }
 
@@ -102,6 +116,7 @@ void Game::battleLoopEasy() {
 	while (!player.isDead() && !grunt.isDead()) {
 		SDL_RenderClear(renderer);
 		renderText("Player HP: " + std::to_string(player.getHP()), 10, 10, white); //Show Player HP
+		SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect); //Show sprite
 		renderText("Choose your move: 1.Fire 2.Water 3.Plant 4.Lightning 5.Physical 6.Dark", 10, 500, white);
 		SDL_RenderPresent(renderer);
 
@@ -171,6 +186,7 @@ void Game::clean()
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	TTF_CloseFont(font);
+	SDL_DestroyTexture(playerTexture);
 	TTF_Quit();
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl; //debug

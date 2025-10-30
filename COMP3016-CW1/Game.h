@@ -26,6 +26,8 @@ private:
 	bool isRunning;
 	SDL_Window* window;
 	TTF_Font* font;
+	SDL_Texture* playerTexture;
+	SDL_Rect playerRect;
 };
 
 
