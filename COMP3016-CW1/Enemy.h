@@ -32,11 +32,11 @@ public:
 
 	int getMaxHP();
 
-	AttackType getAttack();
 private:
 	bool isProtected;
 	bool attackNow;
 	int HP, maxHP;
+	AttackType enemyType;
 	//std::string att;
 
 };

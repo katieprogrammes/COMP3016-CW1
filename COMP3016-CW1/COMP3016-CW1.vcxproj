@@ -135,9 +135,7 @@ xcopy /Y /D "$(SolutionDir)External\SDL2_ttf\lib\$(PlatformTarget)\SDL2_ttf.dll"
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
@@ -149,8 +147,6 @@ xcopy /Y /D "$(SolutionDir)External\SDL2_ttf\lib\$(PlatformTarget)\SDL2_ttf.dll"
     <ClInclude Include="ECS.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="SpriteComponent.h" />

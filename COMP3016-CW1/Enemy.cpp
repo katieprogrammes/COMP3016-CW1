@@ -6,7 +6,7 @@ Enemy::Enemy(int health, int thwack, AttackType enemyType)
 
 	HP = health;
 	maxHP = HP;
-	//enemyType = AttackType;
+	this->enemyType = enemyType;
 	isProtected = false;
 }
 Enemy::~Enemy() {}
