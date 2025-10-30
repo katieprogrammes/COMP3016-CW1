@@ -1,19 +1,11 @@
 #pragma once
-#include <string>
+#include "Attack.h"
 
-enum AttackType {
-	FIRE,
-	WATER,
-	PLANT,
-	LIGHTNING,
-	PHYSICAL,
-	DARK
-};
-class Character
+class Enemy
 {
 public:
-	Character(int health, int thwack);
-	~Character();
+	Enemy(int health, int thwack, AttackType enemyType);
+	~Enemy();
 
 	void draw();
 
@@ -40,7 +32,7 @@ public:
 
 	int getMaxHP();
 
-	//AttackType getAttack();
+	AttackType getAttack();
 private:
 	bool isProtected;
 	bool attackNow;

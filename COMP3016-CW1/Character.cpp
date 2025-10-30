@@ -1,12 +1,12 @@
 #include "Character.h"
 
-Character::Character(int health, int thwack, std::string attack)
+Character::Character(int health, int thwack)
 {
 	attackNow = false;
 
 	HP = health;
 	maxHP = HP;
-	att = attack;
+	//att = attack;
 	isProtected = false;
 }
 Character::~Character() {}
@@ -54,7 +54,8 @@ int Character::getMaxHP()
 {
 	return maxHP;
 }
-std::string Character::getAttack()
+/*std::string Character::getAttack()
 {
 	return att;
 }
+*/

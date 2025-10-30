@@ -11,8 +11,9 @@ SDL_Renderer* Game::renderer = nullptr;
 AssetManager* Game::assets = new AssetManager(&manager);
 
 auto& player(manager.addEntity());
-auto& player2(manager.addEntity());
-auto& player3(manager.addEntity());
+//auto& player2(manager.addEntity());
+//auto& player3(manager.addEntity());
+auto& enemy(manager.addEntity());
 auto& label(manager.addEntity());
 
 Game::Game() {}
@@ -48,9 +49,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 	TTF_Init();
 
-	assets->AddTexture("Missy", "Assets/Missy.png");
-	assets->AddTexture("Larry", "Assets/Larry.png");
 	assets->AddTexture("Witcharella", "Assets/Witcharella.png");
+	assets->AddTexture("Larry", "Assets/Larry.png");
+
 
 	assets->AddFont("arial", "Assets/arial.ttf", 16);
 
@@ -59,12 +60,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	//New Player
 
-	player.addComponent<TransformComponent>(0, 200); //Start Position
-	player.addComponent<SpriteComponent>("Missy");
-	player2.addComponent<TransformComponent>(150, 200); //Start Position
-	player2.addComponent<SpriteComponent>("Larry");
-	player3.addComponent<TransformComponent>(300, 200); //Start Position
-	player3.addComponent<SpriteComponent>("Witcharella");
+	player.addComponent<TransformComponent>(50, 200); //Start Position
+	player.addComponent<SpriteComponent>("Witcharella");
+	enemy.addComponent<TransformComponent>(550, 200); //Start Position
+	enemy.addComponent<SpriteComponent>("Larry");
 
 	SDL_Color white = { 255, 255, 255, 255 };
 	label.addComponent<UILabel>(10, 500, "Test String", "arial", white);
