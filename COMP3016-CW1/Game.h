@@ -4,6 +4,9 @@
 #include <iostream>
 #include <vector>
 
+
+class AssetManager;
+
 class Game {
 public: 
 	Game(); //constructor
@@ -18,6 +21,7 @@ public:
 	void clean();
 
 	static SDL_Renderer* renderer;
+	static AssetManager* assets;
 private:
 	int count = 0;
 	bool isRunning;

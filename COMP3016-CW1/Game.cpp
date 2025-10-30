@@ -8,6 +8,7 @@
 Manager manager;
 
 SDL_Renderer* Game::renderer = nullptr;
+AssetManager* Game::assets = new AssetManager(&manager);
 
 auto& player(manager.addEntity());
 auto& player2(manager.addEntity());
@@ -44,13 +45,13 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		isRunning = false;
 	}
-
+	assets->AddTexture("player", "Assets/Missy.png");
 	//map = new Map();
 
 	//New Player
 
 	player.addComponent<TransformComponent>(0, 200); //Start Position
-	player.addComponent<SpriteComponent>("Assets/Missy.png");
+	player.addComponent<SpriteComponent>("player");
 	player2.addComponent<TransformComponent>(150, 200); //Start Position
 	player2.addComponent<SpriteComponent>("Assets/Larry.png");
 	player3.addComponent<TransformComponent>(300, 200); //Start Position
