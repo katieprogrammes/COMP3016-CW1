@@ -1,9 +1,22 @@
 #include "Game.h"
+#include "TypeMatchup.h"
+#include <iostream>
 
 Game* game = nullptr;
 
 int main(int argc, char* argv[])
 {
+
+	TypeMatchup matchup;
+	AttackType playerMove = AttackType::FIRE;
+	AttackType enemyType = AttackType::PLANT;
+	float effectiveness = matchup.getEffectiveness(playerMove, enemyType);
+
+	std::cout << "Type Matchup Test:\n"; //testing the type matchup logic
+	std::cout << TypeMatchup::typeToString(playerMove) << " vs "
+		<< TypeMatchup::typeToString(enemyType) << " = "
+		<< effectiveness << "x effectiveness\n\n";
+
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
 
