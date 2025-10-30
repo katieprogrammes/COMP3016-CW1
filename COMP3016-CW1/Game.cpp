@@ -1,15 +1,17 @@
 #include "Game.h"
 #include "TextureManager.h"
-#include "Map.h"
+//#include "Map.h"
 #include "Components.h"
 
 
-Map* map;
+//Map* map;
 Manager manager;
 
 SDL_Renderer* Game::renderer = nullptr;
 
 auto& player(manager.addEntity());
+auto& player2(manager.addEntity());
+auto& player3(manager.addEntity());
 
 Game::Game() {}
 Game::~Game() {}
@@ -43,12 +45,17 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	map = new Map();
+	//map = new Map();
 
 	//New Player
 
-	player.addComponent<PositionComponent>(0,0); //Start Position
+	player.addComponent<TransformComponent>(0,200); //Start Position
 	player.addComponent<SpriteComponent>("Assets/Missy.png");
+	player2.addComponent<TransformComponent>(150, 200); //Start Position
+	player2.addComponent<SpriteComponent>("Assets/Larry.png");
+	player3.addComponent<TransformComponent>(300, 200); //Start Position
+	player3.addComponent<SpriteComponent>("Assets/Witcharella.png");
+
 
 }
 
@@ -71,16 +78,16 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 
-	if (player.getComponent<PositionComponent>().x() > 100)
+	/*if (player.getComponent<TransformComponent>().x() > 100)
 	{
 		player.getComponent<SpriteComponent>().setTex("Assets/Asta.png");
-	}
+	}*/
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	map->DrawMap();
+	//map->DrawMap();
 	manager.draw();
 	SDL_RenderPresent(renderer);
 }
