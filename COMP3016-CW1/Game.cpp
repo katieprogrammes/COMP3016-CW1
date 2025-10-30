@@ -49,7 +49,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 		return;
 	}
-	SDL_Surface* tempSurface = IMG_Load("Assets/Witcharella.png"); // Replace with your actual image path
+	//Player Sprite
+	SDL_Surface* tempSurface = IMG_Load("Assets/Witcharella.png");
 	if (!tempSurface) {
 		std::cout << "Failed to load player image: " << IMG_GetError() << std::endl;
 		isRunning = false;
@@ -58,11 +59,28 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	playerTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
 	SDL_FreeSurface(tempSurface);
 
-	// Set position and size on screen
+	//Position and Size
 	playerRect.x = 50;  // X position
 	playerRect.y = 150; // Y position
 	playerRect.w = 180;  // Width of image
 	playerRect.h = 296;  // Height of image
+
+	//Enemy Sprite
+	SDL_Surface* enemySurface = IMG_Load("Assets/Larry.png");
+	if (!enemySurface) {
+		std::cout << "Failed to load enemy image: " << IMG_GetError() << std::endl;
+		isRunning = false;
+		return;
+	}
+	enemyTexture = SDL_CreateTextureFromSurface(renderer, enemySurface);
+	SDL_FreeSurface(enemySurface);
+
+	//Position and Size
+	enemyRect.x = 500;  // X position
+	enemyRect.y = 150;  // Y position
+	enemyRect.w = 248;  // Width of image
+	enemyRect.h = 303;  // Height of image
+
 
 }
 
@@ -107,7 +125,7 @@ int Game::getPlayerMove() {
 }
 void Game::battleLoopEasy() {
 	Player player(100, 20);
-	Enemy grunt(100, 20, AttackType::PLANT);
+	Enemy grunt(100, 20, AttackType::LIGHTNING);
 	SDL_Color white = { 255, 255, 255 };
 	SDL_Color blue = { 0, 0, 255 };
 	SDL_Color red = { 255, 0, 0 };
@@ -116,7 +134,8 @@ void Game::battleLoopEasy() {
 	while (!player.isDead() && !grunt.isDead()) {
 		SDL_RenderClear(renderer);
 		renderText("Player HP: " + std::to_string(player.getHP()), 10, 10, white); //Show Player HP
-		SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect); //Show sprite
+		SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect); //Show Player Sprite
+		SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);   // Show Enemy Sprite
 		renderText("Choose your move: 1.Fire 2.Water 3.Plant 4.Lightning 5.Physical 6.Dark", 10, 500, white);
 		SDL_RenderPresent(renderer);
 
@@ -127,7 +146,7 @@ void Game::battleLoopEasy() {
 			". Effectiveness: " + std::to_string(effectiveness) +
 			"x. Damage dealt: " + std::to_string(damage);
 
-		renderText(feedback, 50, 550, blue);
+		renderText(feedback, 50, 100, blue);
 		SDL_RenderPresent(renderer);
 		SDL_Delay(1500); // pause to show feedback
 
@@ -187,6 +206,7 @@ void Game::clean()
 	SDL_DestroyRenderer(renderer);
 	TTF_CloseFont(font);
 	SDL_DestroyTexture(playerTexture);
+	SDL_DestroyTexture(enemyTexture);
 	TTF_Quit();
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl; //debug
