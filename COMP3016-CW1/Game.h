@@ -9,7 +9,9 @@ class Game {
 public:
 	Game(); //constructor
 	~Game(); //deconstructor
-
+	void battleLoopEasy();
+	void battleLoopMedium();
+	void battleLoopHard();
 	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen); //method for initialising
 
 	void handleEvents();

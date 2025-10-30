@@ -12,11 +12,6 @@ int main(int argc, char* argv[])
 	AttackType enemyType = AttackType::PLANT;
 	float effectiveness = matchup.getEffectiveness(playerMove, enemyType);
 
-	std::cout << "Type Matchup Test:\n"; //testing the type matchup logic
-	std::cout << TypeMatchup::typeToString(playerMove) << " vs "
-		<< TypeMatchup::typeToString(enemyType) << " = "
-		<< effectiveness << "x effectiveness\n\n";
-
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
 
@@ -25,7 +20,8 @@ int main(int argc, char* argv[])
 	game = new Game();
 
 	game->init("Help! My Best Friend Has Been Trapped in a Tower by an Evil Wizard and Our Friends are Coming Together to Save Them", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
-
+	game->battleLoopEasy();
+	game->battleLoopMedium();
 	while (game->running())
 	{
 		frameStart = SDL_GetTicks();

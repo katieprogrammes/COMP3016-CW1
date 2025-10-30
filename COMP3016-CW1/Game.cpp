@@ -1,9 +1,69 @@
 #include "Game.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "TypeMatchup.h"
 
 SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game() {}
 Game::~Game() {}
+
+void Game::battleLoopEasy() {
+	Player player(100, 20);
+	Enemy grunt(100, 20, AttackType::PLANT);
+
+	while (!player.isDead() && !grunt.isDead()) {
+		std::cout << "\n--- Player Turn ---\n";
+		std::cout << "Choose your move:\n1. Fire\n2. Water\n3. Plant\n4. Lightning\n5. Physical\n6. Dark\n> ";
+		int choice;
+		std::cin >> choice;
+
+		AttackType move = static_cast<AttackType>(choice - 1);
+		player.attack(grunt, move);
+
+		if (grunt.isDead()) {
+			std::cout << "You defeated the enemy!\n";
+			break;
+		}
+
+		std::cout << "\n--- Enemy Turn ---\n";
+		player.takeDamage(20);
+		std::cout << "Enemy attacks! Player HP: " << player.getHP() << "\n";
+
+		if (player.isDead()) {
+			std::cout << "You were defeated...\n";
+			break;
+		}
+	}
+}
+void Game::battleLoopMedium() {
+	Player player(100, 20);
+	Enemy goblin(120, 20, AttackType::FIRE);
+
+	while (!player.isDead() && !goblin.isDead()) {
+		std::cout << "\n--- Player Turn ---\n";
+		std::cout << "Choose your move:\n1. Fire\n2. Water\n3. Plant\n4. Lightning\n5. Physical\n6. Dark\n> ";
+		int choice;
+		std::cin >> choice;
+
+		AttackType move = static_cast<AttackType>(choice - 1);
+		player.attack(goblin, move);
+
+		if (goblin.isDead()) {
+			std::cout << "You defeated the enemy!\n";
+			break;
+		}
+
+		std::cout << "\n--- Enemy Turn ---\n";
+		player.takeDamage(20);
+		std::cout << "Enemy attacks! Player HP: " << player.getHP() << "\n";
+
+		if (player.isDead()) {
+			std::cout << "You were defeated...\n";
+			break;
+		}
+	}
+}
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) //initialising SDL
 {
