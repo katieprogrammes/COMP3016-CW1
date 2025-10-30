@@ -98,7 +98,7 @@ void Game::battleLoopEasy() {
 
 	while (!player.isDead() && !grunt.isDead()) {
 		SDL_RenderClear(renderer);
-		renderText("Choose your move: 1.Fire 2.Water 3.Plant 4.Lightning 5.Physical 6.Dark", 10, 50, white);
+		renderText("Choose your move: 1.Fire 2.Water 3.Plant 4.Lightning 5.Physical 6.Dark", 10, 500, white);
 		SDL_RenderPresent(renderer);
 
 		int choice = getPlayerMove();
@@ -108,20 +108,20 @@ void Game::battleLoopEasy() {
 			". Effectiveness: " + std::to_string(effectiveness) +
 			"x. Damage dealt: " + std::to_string(damage);
 
-		renderText(feedback, 50, 150, white);
+		renderText(feedback, 50, 500, white);
 		SDL_RenderPresent(renderer);
 		SDL_Delay(1500); // pause to show feedback
 
 
 		SDL_RenderClear(renderer);
-		renderText("Enemy Turn: Enemy attacks!", 50, 100, white);
+		renderText("Enemy Turn: Enemy attacks!", 50, 500, white);
 		player.takeDamage(20);
 		SDL_RenderPresent(renderer);
 		SDL_Delay(1000); // pause for effect
 
 		if (grunt.isDead()) {
 			SDL_RenderClear(renderer);
-			renderText("You defeated the enemy!", 50, 150, white);
+			renderText("You defeated the enemy!", 50, 500, white);
 			SDL_RenderPresent(renderer);
 			SDL_Delay(2000);
 			break;
@@ -129,7 +129,7 @@ void Game::battleLoopEasy() {
 
 		if (player.isDead()) {
 			SDL_RenderClear(renderer);
-			renderText("You were defeated...", 50, 150, white);
+			renderText("You were defeated...", 50, 500, white);
 			SDL_RenderPresent(renderer);
 			SDL_Delay(2000);
 			break;
