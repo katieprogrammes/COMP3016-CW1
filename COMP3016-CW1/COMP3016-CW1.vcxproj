@@ -112,7 +112,8 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /Y /D "$(SolutionDir)External\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutDir)"
-xcopy /Y /D "$(SolutionDir)External\SDL2_image\lib\$(PlatformTarget)\SDL2_image.dll" "$(OutDir)"</Command>
+xcopy /Y /D "$(SolutionDir)External\SDL2_image\lib\$(PlatformTarget)\SDL2_image.dll" "$(OutDir)"
+xcopy /Y /D "$(SolutionDir)External\SDL2_ttf\lib\$(PlatformTarget)\SDL2_ttf.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

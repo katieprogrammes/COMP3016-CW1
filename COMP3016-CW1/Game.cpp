@@ -13,6 +13,7 @@ AssetManager* Game::assets = new AssetManager(&manager);
 auto& player(manager.addEntity());
 auto& player2(manager.addEntity());
 auto& player3(manager.addEntity());
+auto& label(manager.addEntity());
 
 Game::Game() {}
 Game::~Game() {}
@@ -45,18 +46,28 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		isRunning = false;
 	}
-	assets->AddTexture("player", "Assets/Missy.png");
+	TTF_Init();
+
+	assets->AddTexture("Missy", "Assets/Missy.png");
+	assets->AddTexture("Larry", "Assets/Larry.png");
+	assets->AddTexture("Witcharella", "Assets/Witcharella.png");
+
+	assets->AddFont("arial", "Assets/arial.ttf", 16);
+
 	//map = new Map();
+
 
 	//New Player
 
 	player.addComponent<TransformComponent>(0, 200); //Start Position
-	player.addComponent<SpriteComponent>("player");
+	player.addComponent<SpriteComponent>("Missy");
 	player2.addComponent<TransformComponent>(150, 200); //Start Position
-	player2.addComponent<SpriteComponent>("Assets/Larry.png");
+	player2.addComponent<SpriteComponent>("Larry");
 	player3.addComponent<TransformComponent>(300, 200); //Start Position
-	player3.addComponent<SpriteComponent>("Assets/Witcharella.png");
+	player3.addComponent<SpriteComponent>("Witcharella");
 
+	SDL_Color white = { 255, 255, 255, 255 };
+	label.addComponent<UILabel>(10, 500, "Test String", "arial", white);
 
 }
 
@@ -90,6 +101,7 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	//map->DrawMap();
 	manager.draw();
+	label.draw();
 	SDL_RenderPresent(renderer);
 }
 
