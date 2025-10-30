@@ -49,7 +49,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	//New Player
 
-	player.addComponent<TransformComponent>(0,200); //Start Position
+	player.addComponent<TransformComponent>(0, 200); //Start Position
 	player.addComponent<SpriteComponent>("Assets/Missy.png");
 	player2.addComponent<TransformComponent>(150, 200); //Start Position
 	player2.addComponent<SpriteComponent>("Assets/Larry.png");
