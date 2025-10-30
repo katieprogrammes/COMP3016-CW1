@@ -6,7 +6,7 @@ class Player {
 public:
     Player(int health, int baseDamage);
 
-    void attack(Enemy& target, AttackType moveType);
+    std::pair<float, int> attack(Enemy& target, AttackType moveType);
     void takeDamage(int damage);
     void protect();
     void unprotect();

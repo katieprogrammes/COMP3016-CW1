@@ -103,7 +103,15 @@ void Game::battleLoopEasy() {
 
 		int choice = getPlayerMove();
 		AttackType move = static_cast<AttackType>(choice - 1);
-		player.attack(grunt, move);
+		auto [effectiveness, damage] = player.attack(grunt, move);
+		std::string feedback = "You used " + TypeMatchup::typeToString(move) +
+			". Effectiveness: " + std::to_string(effectiveness) +
+			"x. Damage dealt: " + std::to_string(damage);
+
+		renderText(feedback, 50, 150, white);
+		SDL_RenderPresent(renderer);
+		SDL_Delay(1500); // pause to show feedback
+
 
 		SDL_RenderClear(renderer);
 		renderText("Enemy Turn: Enemy attacks!", 50, 100, white);

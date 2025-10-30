@@ -5,17 +5,16 @@ Player::Player(int health, int baseDamage)
     : HP(health), maxHP(health), baseDamage(baseDamage), protectedStatus(false) {
 }
 
-void Player::attack(Enemy& target, AttackType moveType) {
+std::pair<float, int> Player::attack(Enemy& target, AttackType moveType) {
     TypeMatchup matchup;
     float effectiveness = matchup.getEffectiveness(moveType, target.getType());
     int damage = static_cast<int>(baseDamage * effectiveness);
 
     target.damaged(damage, moveType);
 
-    std::cout << "Player used " << TypeMatchup::typeToString(moveType)
-        << " attack. Effectiveness: " << effectiveness
-        << "x. Damage dealt: " << damage << "\n";
+    return { effectiveness, damage };
 }
+
 
 void Player::takeDamage(int damage) {
     if (protectedStatus)
