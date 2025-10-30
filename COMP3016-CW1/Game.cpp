@@ -101,6 +101,7 @@ void Game::battleLoopEasy() {
 
 	while (!player.isDead() && !grunt.isDead()) {
 		SDL_RenderClear(renderer);
+		renderText("Player HP: " + std::to_string(player.getHP()), 10, 10, white); //Show Player HP
 		renderText("Choose your move: 1.Fire 2.Water 3.Plant 4.Lightning 5.Physical 6.Dark", 10, 500, white);
 		SDL_RenderPresent(renderer);
 
