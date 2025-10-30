@@ -21,7 +21,6 @@ int main(int argc, char* argv[])
 
 	game->init("Help! My Best Friend Has Been Trapped in a Tower by an Evil Wizard and Our Friends are Coming Together to Save Them", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
 	game->battleLoopEasy();
-	game->battleLoopMedium();
 	while (game->running())
 	{
 		frameStart = SDL_GetTicks();
