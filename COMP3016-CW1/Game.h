@@ -1,14 +1,12 @@
 #pragma once
+#pragma once
 #include "SDL.h"
 #include "SDL_image.h"
 #include <iostream>
 #include <vector>
 
-
-class AssetManager;
-
 class Game {
-public: 
+public:
 	Game(); //constructor
 	~Game(); //deconstructor
 
@@ -21,9 +19,11 @@ public:
 	void clean();
 
 	static SDL_Renderer* renderer;
-	static AssetManager* assets;
 private:
-	int count = 0;
 	bool isRunning;
 	SDL_Window* window;
 };
+
+
+
+

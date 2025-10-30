@@ -1,22 +1,9 @@
 #include "Game.h"
-#include "TextureManager.h"
-#include "Components.h"
-#include "Enemy.h"
-
-Manager manager;
 
 SDL_Renderer* Game::renderer = nullptr;
-AssetManager* Game::assets = new AssetManager(&manager);
-
-//auto& player(manager.addEntity());
-//auto& player2(manager.addEntity());
-//auto& player3(manager.addEntity());
-//auto& enemy(manager.addEntity());
-//auto& label(manager.addEntity());
 
 Game::Game() {}
 Game::~Game() {}
-Enemy myEnemy = Enemy(100, 10, FIRE);
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) //initialising SDL
 {
@@ -46,31 +33,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		isRunning = false;
 	}
-	TTF_Init();
-
-	assets->AddTexture("Witcharella", "Assets/Witcharella.png");
-	assets->AddTexture("Larry", "Assets/Larry.png");
-
-
-	assets->AddFont("arial", "Assets/arial.ttf", 16);
-
-
-
-
-	//New Player
-
-	//player.addComponent<TransformComponent>(50, 200); //Start Position
-	//player.addComponent<SpriteComponent>("Witcharella");
-	//enemy.addComponent<TransformComponent>(550, 200); //Start Position
-	//enemy.addComponent<SpriteComponent>("Larry");
-
-	SDL_Color white = { 255, 255, 255, 255 };
-	//label.addComponent<UILabel>(10, 500, "Test String", "arial", white);
-
-	
-
 }
-
 void Game::handleEvents()
 {
 	SDL_Event event;
@@ -87,20 +50,11 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	manager.refresh();
-	manager.update();
-
-	/*if (player.getComponent<TransformComponent>().x() > 100)
-	{
-		player.getComponent<SpriteComponent>().setTex("Assets/Asta.png");
-	}*/
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	manager.draw();
-	//label.draw();
 	SDL_RenderPresent(renderer);
 }
 
@@ -111,4 +65,3 @@ void Game::clean()
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl; //debug
 }
-
