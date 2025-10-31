@@ -76,7 +76,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	SDL_FreeSurface(DMGplayerSurface);
 
 	//Position and Size
-	DMGplayerRect.x = 50;  // X position
+	DMGplayerRect.x = 250;  // X position
 	DMGplayerRect.y = 150; // Y position
 	DMGplayerRect.w = 180;  // Width of image
 	DMGplayerRect.h = 296;  // Height of image
@@ -158,7 +158,7 @@ void Game::battleLoopEasy() {
 	Player player(100, 20);
 	Enemy grunt(100, 20, AttackType::LIGHTNING);
 	SDL_Color white = { 255, 255, 255 };
-	SDL_Color blue = { 0, 0, 255 };
+	SDL_Color pink = { 255, 230, 247 };
 	SDL_Color red = { 255, 0, 0 };
 	SDL_Color green = { 0, 255, 0 };
 
@@ -174,24 +174,26 @@ void Game::battleLoopEasy() {
 		AttackType move = static_cast<AttackType>(choice - 1);
 		auto [effectiveness, damage] = player.attack(grunt, move);
 		std::string feedback = "You used " + TypeMatchup::typeToString(move) +
-			". Effectiveness: " + std::to_string(effectiveness) +
-			"x. Damage dealt: " + std::to_string(damage);
+		". " + ". Damage dealt: " + std::to_string(damage);
+		std::string effectTxt = TypeMatchup::effectToString(effectiveness);
+		SDL_Color effectTxtCol = TypeMatchup::effectColor(effectiveness);
 
-		renderText(feedback, 50, 100, blue);
+		renderText(feedback, 200, 100, pink);
+		renderText(effectTxt, 250, 125, effectTxtCol);
 		SDL_RenderPresent(renderer);
-		SDL_Delay(1500); // pause to show feedback
+		SDL_Delay(3000); // pause to show feedback
 
 
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, DMGplayerTexture, nullptr, &DMGplayerRect);
-		renderText("Enemy Turn: Enemy attacks!", 50, 500, red);
+		renderText("Enemy Turn: Enemy attacks!", 200, 500, red);
 		player.takeDamage(20);
 		SDL_RenderPresent(renderer);
-		SDL_Delay(1000); // pause for effect
+		SDL_Delay(1500); // pause for effect
 
 		if (grunt.isDead()) {
 			SDL_RenderClear(renderer);
-			renderText("You defeated the enemy!", 50, 500, green);
+			renderText("You defeated the enemy!", 200, 500, green);
 			SDL_RenderPresent(renderer);
 			SDL_Delay(2000);
 			break;
@@ -199,64 +201,14 @@ void Game::battleLoopEasy() {
 
 		if (player.isDead()) {
 			SDL_RenderClear(renderer);
-			renderText("You were defeated...", 50, 500, red);
+			renderText("You were defeated...", 200, 500, red);
 			SDL_RenderPresent(renderer);
 			SDL_Delay(2000);
 			break;
 		}
 	}
 }
-void Game::battleLoopMedium() {
-	Player player(100, 20);
-	Enemy grunt(150, 20, AttackType::FIRE);
-	SDL_Color white = { 255, 255, 255 };
-	SDL_Color blue = { 0, 0, 255 };
-	SDL_Color red = { 255, 0, 0 };
-	SDL_Color green = { 0, 255, 0 };
 
-	while (!player.isDead() && !grunt.isDead()) {
-		SDL_RenderClear(renderer);
-		renderText("Player HP: " + std::to_string(player.getHP()), 10, 10, white); //Show Player HP
-		SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect); //Show Player Sprite
-		SDL_RenderCopy(renderer, enemyTexture2, nullptr, &enemyRect2);   // Show Enemy Sprite
-		renderText("Choose your move: 1.Fire 2.Water 3.Plant 4.Lightning 5.Physical 6.Dark", 10, 500, white);
-		SDL_RenderPresent(renderer);
-
-		int choice = getPlayerMove();
-		AttackType move = static_cast<AttackType>(choice - 1);
-		auto [effectiveness, damage] = player.attack(grunt, move);
-		std::string feedback = "You used " + TypeMatchup::typeToString(move) +
-			". Effectiveness: " + std::to_string(effectiveness) +
-			"x. Damage dealt: " + std::to_string(damage);
-
-		renderText(feedback, 50, 100, blue);
-		SDL_RenderPresent(renderer);
-		SDL_Delay(1500); // pause to show feedback
-
-
-		SDL_RenderClear(renderer);
-		renderText("Enemy Turn: Enemy attacks!", 50, 500, red);
-		player.takeDamage(20);
-		SDL_RenderPresent(renderer);
-		SDL_Delay(1000); // pause for effect
-
-		if (grunt.isDead()) {
-			SDL_RenderClear(renderer);
-			renderText("You defeated the enemy!", 50, 500, green);
-			SDL_RenderPresent(renderer);
-			SDL_Delay(2000);
-			break;
-		}
-
-		if (player.isDead()) {
-			SDL_RenderClear(renderer);
-			renderText("You were defeated...", 50, 500, red);
-			SDL_RenderPresent(renderer);
-			SDL_Delay(2000);
-			break;
-		}
-	}
-}
 
 
 void Game::handleEvents()

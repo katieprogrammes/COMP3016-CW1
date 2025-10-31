@@ -38,3 +38,15 @@ std::string TypeMatchup::typeToString(AttackType type) {
     default: return "Physical";
     }
 }
+std::string TypeMatchup::effectToString(float value)
+{
+    if (value >= 2.0f) return "It's Super Effective!";
+    else if (value <= 0.5f) return "It's Not Very Effective...";
+    else return "It's effective.";
+}
+SDL_Color TypeMatchup::effectColor(float value)
+{
+    if (value >= 2.0f) return { 0, 230, 0 };
+    else if (value <= 0.5f) return { 230, 46, 0 };
+    else return { 77, 77, 255 };
+}
