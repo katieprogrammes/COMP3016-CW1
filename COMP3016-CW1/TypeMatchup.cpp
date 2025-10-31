@@ -4,8 +4,10 @@ TypeMatchup::TypeMatchup() {
     // Initialize effectiveness table
     effectivenessTable[AttackType::FIRE][AttackType::PLANT] = 2.0f;
     effectivenessTable[AttackType::FIRE][AttackType::WATER] = 0.5f;
+    effectivenessTable[AttackType::FIRE][AttackType::DARK] = 0.5f;
     effectivenessTable[AttackType::WATER][AttackType::FIRE] = 2.0f;
     effectivenessTable[AttackType::WATER][AttackType::PLANT] = 0.5f;
+    effectivenessTable[AttackType::WATER][AttackType::LIGHTNING] = 2.0f;
     effectivenessTable[AttackType::PLANT][AttackType::WATER] = 2.0f;
     effectivenessTable[AttackType::PLANT][AttackType::FIRE] = 0.5f;
     effectivenessTable[AttackType::LIGHTNING][AttackType::WATER] = 2.0f;
