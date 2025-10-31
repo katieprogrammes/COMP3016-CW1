@@ -30,6 +30,8 @@ private:
 	SDL_Rect playerRect;
 	SDL_Texture* enemyTexture;
 	SDL_Rect enemyRect;
+	SDL_Texture* enemyTexture2;
+	SDL_Rect enemyRect2;
 };
 
 
