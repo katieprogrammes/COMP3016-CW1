@@ -20,6 +20,10 @@ public:
 	bool running() { return isRunning; }
 	void render();
 	void clean();
+	SDL_Renderer* getRenderer() const { return renderer; }
+	TTF_Font* getFont() const { return font; }
+	void stopRunning() { isRunning = false; }
+
 
 	static SDL_Renderer* renderer;
 private:

@@ -3,6 +3,13 @@
 #include "Enemy.h"
 #include "TypeMatchup.h"
 
+#include "IntroScreen.h"
+#include "Screen.h"
+
+Screen* currentScreen = nullptr;
+IntroScreen* intro = nullptr;
+bool inIntro = true;
+
 SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game() {}
