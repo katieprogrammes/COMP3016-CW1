@@ -50,20 +50,36 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		return;
 	}
 	//Player Sprite
-	SDL_Surface* tempSurface = IMG_Load("Assets/Witcharella.png");
-	if (!tempSurface) {
+	SDL_Surface* playerSurface = IMG_Load("Assets/Witcharella.png");
+	if (!playerSurface) {
 		std::cout << "Failed to load player image: " << IMG_GetError() << std::endl;
 		isRunning = false;
 		return;
 	}
-	playerTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
-	SDL_FreeSurface(tempSurface);
+	playerTexture = SDL_CreateTextureFromSurface(renderer, playerSurface);
+	SDL_FreeSurface(playerSurface);
 
 	//Position and Size
 	playerRect.x = 50;  // X position
 	playerRect.y = 150; // Y position
 	playerRect.w = 180;  // Width of image
 	playerRect.h = 296;  // Height of image
+
+	//Player Damage Sprite
+	SDL_Surface* DMGplayerSurface = IMG_Load("Assets/DMGWitcharella.png");
+	if (!DMGplayerSurface) {
+		std::cout << "Failed to load player image: " << IMG_GetError() << std::endl;
+		isRunning = false;
+		return;
+	}
+	DMGplayerTexture = SDL_CreateTextureFromSurface(renderer, DMGplayerSurface);
+	SDL_FreeSurface(DMGplayerSurface);
+
+	//Position and Size
+	DMGplayerRect.x = 50;  // X position
+	DMGplayerRect.y = 150; // Y position
+	DMGplayerRect.w = 180;  // Width of image
+	DMGplayerRect.h = 296;  // Height of image
 
 	//Easy Enemy Sprite
 	SDL_Surface* enemySurface = IMG_Load("Assets/Larry.png");
@@ -167,6 +183,7 @@ void Game::battleLoopEasy() {
 
 
 		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, DMGplayerTexture, nullptr, &DMGplayerRect);
 		renderText("Enemy Turn: Enemy attacks!", 50, 500, red);
 		player.takeDamage(20);
 		SDL_RenderPresent(renderer);

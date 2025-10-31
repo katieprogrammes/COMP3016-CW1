@@ -28,6 +28,8 @@ private:
 	TTF_Font* font;
 	SDL_Texture* playerTexture;
 	SDL_Rect playerRect;
+	SDL_Texture* DMGplayerTexture;
+	SDL_Rect DMGplayerRect;
 	SDL_Texture* enemyTexture;
 	SDL_Rect enemyRect;
 	SDL_Texture* enemyTexture2;
