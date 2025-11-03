@@ -22,7 +22,7 @@ IntroScreen::IntroScreen(SDL_Renderer* renderer, TTF_Font* font)
     introRect.x = 0;  // X position
     introRect.y = 0; // Y position
     introRect.w = 800;  // Width of image
-    introRect.h = 680;  // Height of image
+    introRect.h = 640;  // Height of image
 }
 
 IntroScreen::~IntroScreen() {}
@@ -34,7 +34,7 @@ void IntroScreen::handleEvents(SDL_Event& event) {
 }
 
 void IntroScreen::update() {
-    // No logic yet
+    
 }
 
 

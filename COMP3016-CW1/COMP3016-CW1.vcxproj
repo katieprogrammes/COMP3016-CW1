@@ -25,6 +25,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="StoryScreen.h" />
     <ClInclude Include="TypeMatchup.h" />
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +35,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StoryScreen.cpp" />
     <ClCompile Include="TypeMatchup.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
