@@ -23,12 +23,29 @@ CombatScreen::CombatScreen(SDL_Renderer* renderer, TTF_Font* font)
     enemyTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
     enemyRect = { 500, 150, 248, 303 };
+
+    surface = IMG_Load("Assets/typeMatchup.png");
+    typeMatchupTex = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    typeMatchupRect = { 10, 400, 757, 226 };
+
+    surface = IMG_Load("Assets/moveSet.png");
+    moveSetTex = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    moveSetRect = { 25, 500, 750, 70 };
+
+    surface = IMG_Load("Assets/deadText.png");
+    deadTxtTex = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    deadTxtRect = { 25, 500, 750, 70 };
 }
 
 CombatScreen::~CombatScreen() {
     SDL_DestroyTexture(playerTexture);
     SDL_DestroyTexture(dmgPlayerTexture);
     SDL_DestroyTexture(enemyTexture);
+    SDL_DestroyTexture(typeMatchupTex);
+    SDL_DestroyTexture(deadTxtTex);
 }
 
 void CombatScreen::handleEvents(SDL_Event& event) {
@@ -40,7 +57,8 @@ void CombatScreen::handleEvents(SDL_Event& event) {
     }
 }
 
-int CombatScreen::getPlayerMove(SDL_Event& event) {
+int CombatScreen::getPlayerMove(SDL_Event& event) 
+{
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
         case SDLK_1: return 1;
@@ -67,8 +85,8 @@ void CombatScreen::update() {
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
         SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
-        renderText(feedback, 200, 100, pink);
-        renderText(TypeMatchup::effectToString(effectiveness), 250, 125, effectColor);
+        renderText(feedback, 300, 100, pink);
+        renderText(TypeMatchup::effectToString(effectiveness), 350, 125, effectColor);
         SDL_RenderPresent(renderer);
         SDL_Delay(3000);
 
@@ -88,11 +106,12 @@ void CombatScreen::update() {
         if (player.isDead()) {
             SDL_RenderClear(renderer);
             SDL_RenderCopy(renderer, deadPlayerTexture, nullptr, &deadPlayerRect);
-            renderText("You were defeated...", 200, 500, { 255, 0, 0 });
+            SDL_RenderCopy(renderer, deadTxtTex, nullptr, &deadTxtRect);
             SDL_RenderPresent(renderer);
             SDL_Delay(2000);
             finished = true;
         }
+
 
         waitingForInput = true;
         playerChoice = 0;
@@ -105,7 +124,8 @@ void CombatScreen::render(SDL_Renderer* renderer) {
     renderText("Player HP: " + std::to_string(player.getHP()), 10, 10, white);
     SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
     SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
-    renderText("Choose your move: 1.Fire 2.Water 3.Plant 4.Lightning 5.Physical 6.Dark", 10, 500, white);
+    SDL_RenderCopy(renderer, moveSetTex, nullptr, &moveSetRect);
+    renderText("Press 'm' to see the Matchup Chart", 25, 600, white);
     SDL_RenderPresent(renderer);
 }
 

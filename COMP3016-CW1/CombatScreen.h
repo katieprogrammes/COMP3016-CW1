@@ -31,11 +31,17 @@ private:
     SDL_Texture* dmgPlayerTexture;
     SDL_Texture* deadPlayerTexture;
     SDL_Texture* enemyTexture;
+    SDL_Texture* typeMatchupTex;
+    SDL_Texture* moveSetTex;
+    SDL_Texture* deadTxtTex;
 
     SDL_Rect playerRect;
     SDL_Rect dmgPlayerRect;
     SDL_Rect deadPlayerRect;
     SDL_Rect enemyRect;
+    SDL_Rect typeMatchupRect;
+    SDL_Rect moveSetRect;
+    SDL_Rect deadTxtRect;
 
     bool finished = false;
     bool waitingForInput = true;
@@ -43,6 +49,6 @@ private:
 
     void renderText(const std::string& message, int x, int y, SDL_Color color);
     int getPlayerMove(SDL_Event& event);
-
+    void controlChart(SDL_Event& event);
 };
 
