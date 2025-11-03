@@ -11,7 +11,9 @@ StoryScreen::StoryScreen(SDL_Renderer* renderer, TTF_Font* font)
         "Assets/StoryScreen1.png",
         "Assets/StoryScreen2.png",
         "Assets/StoryScreen3.png",
-        "Assets/StoryScreen4.png"
+        "Assets/StoryScreen4.png",
+        "Assets/StoryScreen5.png",
+        "Assets/HowToPlayScreen.png"
 
     };
     for (const auto& path : storyScreens)
@@ -65,7 +67,7 @@ void StoryScreen::render(SDL_Renderer* renderer)
     {
         SDL_RenderCopy(renderer, storyTextures[currentIndex], nullptr, &storyRect);
         SDL_Color white = { 255, 255, 255 };
-        renderText(renderer, "Press any key to continue...", 250, 200, white);
+        renderText(renderer, "", 250, 200, white);
     }
 
     SDL_RenderPresent(renderer);
