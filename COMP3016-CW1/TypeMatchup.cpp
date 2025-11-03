@@ -8,12 +8,20 @@ TypeMatchup::TypeMatchup() {
     effectivenessTable[AttackType::WATER][AttackType::FIRE] = 2.0f;
     effectivenessTable[AttackType::WATER][AttackType::PLANT] = 0.5f;
     effectivenessTable[AttackType::WATER][AttackType::LIGHTNING] = 2.0f;
-    effectivenessTable[AttackType::PLANT][AttackType::WATER] = 2.0f;
+    effectivenessTable[AttackType::WATER][AttackType::PHYSICAL] = 0.f;
     effectivenessTable[AttackType::PLANT][AttackType::FIRE] = 0.5f;
-    effectivenessTable[AttackType::LIGHTNING][AttackType::WATER] = 2.0f;
+    effectivenessTable[AttackType::PLANT][AttackType::WATER] = 2.0f;
+    effectivenessTable[AttackType::PLANT][AttackType::PHYSICAL] = 0.5f;
     effectivenessTable[AttackType::LIGHTNING][AttackType::PLANT] = 0.5f;
     effectivenessTable[AttackType::LIGHTNING][AttackType::DARK] = 2.0f;
+    effectivenessTable[AttackType::DARK][AttackType::FIRE] = 2.0f;
     effectivenessTable[AttackType::DARK][AttackType::PLANT] = 0.5f;
+    effectivenessTable[AttackType::DARK][AttackType::LIGHTNING] = 0.5f;
+    effectivenessTable[AttackType::DARK][AttackType::DARK] = 2.0f;
+    effectivenessTable[AttackType::PHYSICAL][AttackType::PLANT] = 2.0f;
+    effectivenessTable[AttackType::PHYSICAL][AttackType::PHYSICAL] = 2.0f;
+    effectivenessTable[AttackType::PHYSICAL][AttackType::DARK] = 0.5f;
+
     // Default effectiveness is 1.0 (neutral)
 
 }
