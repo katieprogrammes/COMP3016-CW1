@@ -29,10 +29,12 @@ private:
 
     SDL_Texture* playerTexture;
     SDL_Texture* dmgPlayerTexture;
+    SDL_Texture* deadPlayerTexture;
     SDL_Texture* enemyTexture;
 
     SDL_Rect playerRect;
     SDL_Rect dmgPlayerRect;
+    SDL_Rect deadPlayerRect;
     SDL_Rect enemyRect;
 
     bool finished = false;

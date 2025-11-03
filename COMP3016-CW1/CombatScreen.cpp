@@ -2,17 +2,22 @@
 #include <iostream>
 
 CombatScreen::CombatScreen(SDL_Renderer* renderer, TTF_Font* font)
-    : renderer(renderer), font(font), player(100, 20), enemy(100, 20, AttackType::LIGHTNING) {
+    : renderer(renderer), font(font), player(20, 20), enemy(100, 20, AttackType::LIGHTNING) {
 
     SDL_Surface* surface = IMG_Load("Assets/Witcharella.png");
     playerTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
-    playerRect = { 50, 150, 180, 296 };
+    playerRect = { 50, 150, 180, 296 }; //xpos, ypos, width, height
 
     surface = IMG_Load("Assets/DMGWitcharella.png");
     dmgPlayerTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
     dmgPlayerRect = { 250, 150, 180, 296 };
+
+    surface = IMG_Load("Assets/DeadWitcharella.png");
+    deadPlayerTexture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    deadPlayerRect = { 250, 150, 310, 396 };
 
     surface = IMG_Load("Assets/Larry.png");
     enemyTexture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -80,7 +85,9 @@ void CombatScreen::update() {
             SDL_Delay(2000);
             finished = true;
         }
-        else if (player.isDead()) {
+        if (player.isDead()) {
+            SDL_RenderClear(renderer);
+            SDL_RenderCopy(renderer, deadPlayerTexture, nullptr, &deadPlayerRect);
             renderText("You were defeated...", 200, 500, { 255, 0, 0 });
             SDL_RenderPresent(renderer);
             SDL_Delay(2000);

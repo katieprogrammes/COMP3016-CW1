@@ -44,7 +44,7 @@ void IntroScreen::render(SDL_Renderer* renderer) {
     if (introTexture) {
         SDL_RenderCopy(renderer, introTexture, nullptr, &introRect);
     }
-    renderText(renderer, "Press any key to start...", 300, 250, white);
+    renderText(renderer, "Press any key to start...", 250, 500, white);
     SDL_RenderPresent(renderer);
 }
 
