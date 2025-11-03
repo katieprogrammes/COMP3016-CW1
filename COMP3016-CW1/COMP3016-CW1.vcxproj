@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CombatScreen.h" />
     <ClInclude Include="IntroScreen.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Player.h" />
@@ -27,6 +28,7 @@
     <ClInclude Include="TypeMatchup.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CombatScreen.cpp" />
     <ClCompile Include="IntroScreen.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Enemy.cpp" />

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "IntroScreen.h"
 #include "Screen.h"
+#include "CombatScreen.h"
 
 
 Game* game = nullptr;
@@ -44,7 +45,23 @@ int main(int argc, char* argv[])
 
 	delete intro;
 
-	game->battleLoopEasy();
+	CombatScreen* combat = new CombatScreen(game->getRenderer(), game->getFont());
+	currentScreen = combat;
+
+	while (game->running() && !combat->isFinished()) {
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT) game->stopRunning();
+			currentScreen->handleEvents(event);
+		}
+
+		currentScreen->update();
+		currentScreen->render(game->getRenderer());
+		SDL_Delay(frameDelay);
+	}
+
+	delete combat;
+
 	//game->battleLoopMedium();
 	while (game->running())
 	{

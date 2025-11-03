@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "TypeMatchup.h"
-
 #include "IntroScreen.h"
 #include "Screen.h"
 
@@ -56,164 +55,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 		return;
 	}
-	//Player Sprite
-	SDL_Surface* playerSurface = IMG_Load("Assets/Witcharella.png");
-	if (!playerSurface) {
-		std::cout << "Failed to load player image: " << IMG_GetError() << std::endl;
-		isRunning = false;
-		return;
-	}
-	playerTexture = SDL_CreateTextureFromSurface(renderer, playerSurface);
-	SDL_FreeSurface(playerSurface);
-
-	//Position and Size
-	playerRect.x = 50;  // X position
-	playerRect.y = 150; // Y position
-	playerRect.w = 180;  // Width of image
-	playerRect.h = 296;  // Height of image
-
-	//Player Damage Sprite
-	SDL_Surface* DMGplayerSurface = IMG_Load("Assets/DMGWitcharella.png");
-	if (!DMGplayerSurface) {
-		std::cout << "Failed to load player image: " << IMG_GetError() << std::endl;
-		isRunning = false;
-		return;
-	}
-	DMGplayerTexture = SDL_CreateTextureFromSurface(renderer, DMGplayerSurface);
-	SDL_FreeSurface(DMGplayerSurface);
-
-	//Position and Size
-	DMGplayerRect.x = 250;  // X position
-	DMGplayerRect.y = 150; // Y position
-	DMGplayerRect.w = 180;  // Width of image
-	DMGplayerRect.h = 296;  // Height of image
-
-	//Easy Enemy Sprite
-	SDL_Surface* enemySurface = IMG_Load("Assets/Larry.png");
-	if (!enemySurface) {
-		std::cout << "Failed to load enemy image: " << IMG_GetError() << std::endl;
-		isRunning = false;
-		return;
-	}
-	enemyTexture = SDL_CreateTextureFromSurface(renderer, enemySurface);
-	SDL_FreeSurface(enemySurface);
-
-	//Position and Size
-	enemyRect.x = 500;  // X position
-	enemyRect.y = 150;  // Y position
-	enemyRect.w = 248;  // Width of image
-	enemyRect.h = 303;  // Height of image
-
-	//Medium Enemy Sprite
-	SDL_Surface* enemySurface2 = IMG_Load("Assets/Placeholder.png");
-	if (!enemySurface2) {
-		std::cout << "Failed to load enemy image: " << IMG_GetError() << std::endl;
-		isRunning = false;
-		return;
-	}
-	enemyTexture2 = SDL_CreateTextureFromSurface(renderer, enemySurface2);
-	SDL_FreeSurface(enemySurface2);
-
-	//Position and Size
-	enemyRect2.x = 450;  // X position
-	enemyRect2.y = 150;  // Y position
-	enemyRect2.w = 189;  // Width of image
-	enemyRect2.h = 379;  // Height of image
-
-}
-
-void Game::renderText(const std::string& message, int x, int y, SDL_Color color) {
-	if (!font) {
-		std::cout << "Font is null. Cannot render text.\n";
-		return;
-	}
-	if (message.empty()) {
-		std::cout << "Warning: Tried to render empty string.\n";
-		return;
-	}
-
-	SDL_Surface* surface = TTF_RenderText_Solid(font, message.c_str(), color);
-	if (!surface) {
-		std::cout << "Text render failed: " << TTF_GetError() << std::endl;
-		return;
-	}
-
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_Rect destRect = { x, y, surface->w, surface->h };
-	SDL_FreeSurface(surface);
-	SDL_RenderCopy(renderer, texture, nullptr, &destRect);
-	SDL_DestroyTexture(texture);
-}
-
-int Game::getPlayerMove() {
-	SDL_Event event;
-	while (SDL_WaitEvent(&event)) {
-		if (event.type == SDL_KEYDOWN) {
-			switch (event.key.keysym.sym) {
-			case SDLK_1: return 1;
-			case SDLK_2: return 2;
-			case SDLK_3: return 3;
-			case SDLK_4: return 4;
-			case SDLK_5: return 5;
-			case SDLK_6: return 6;
-			}
-		}
-	}
-	return 5; // default to Physical
-}
-void Game::battleLoopEasy() {
-	Player player(100, 20);
-	Enemy grunt(100, 20, AttackType::LIGHTNING);
-	SDL_Color white = { 255, 255, 255 };
-	SDL_Color pink = { 255, 230, 247 };
-	SDL_Color red = { 255, 0, 0 };
-	SDL_Color green = { 0, 255, 0 };
-
-	while (!player.isDead() && !grunt.isDead()) {
-		SDL_RenderClear(renderer);
-		renderText("Player HP: " + std::to_string(player.getHP()), 10, 10, white); //Show Player HP
-		SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect); //Show Player Sprite
-		SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);   // Show Enemy Sprite
-		renderText("Choose your move: 1.Fire 2.Water 3.Plant 4.Lightning 5.Physical 6.Dark", 10, 500, white);
-		SDL_RenderPresent(renderer);
-
-		int choice = getPlayerMove();
-		AttackType move = static_cast<AttackType>(choice - 1);
-		auto [effectiveness, damage] = player.attack(grunt, move);
-		std::string feedback = "You used " + TypeMatchup::typeToString(move) +
-		". " + ". Damage dealt: " + std::to_string(damage);
-		std::string effectTxt = TypeMatchup::effectToString(effectiveness);
-		SDL_Color effectTxtCol = TypeMatchup::effectColor(effectiveness);
-
-		renderText(feedback, 200, 100, pink);
-		renderText(effectTxt, 250, 125, effectTxtCol);
-		SDL_RenderPresent(renderer);
-		SDL_Delay(3000); // pause to show feedback
-
-
-		SDL_RenderClear(renderer);
-		SDL_RenderCopy(renderer, DMGplayerTexture, nullptr, &DMGplayerRect);
-		renderText("Enemy Turn: Enemy attacks!", 200, 500, red);
-		player.takeDamage(20);
-		SDL_RenderPresent(renderer);
-		SDL_Delay(1500); // pause for effect
-
-		if (grunt.isDead()) {
-			SDL_RenderClear(renderer);
-			renderText("You defeated the enemy!", 200, 500, green);
-			SDL_RenderPresent(renderer);
-			SDL_Delay(2000);
-			break;
-		}
-
-		if (player.isDead()) {
-			SDL_RenderClear(renderer);
-			renderText("You were defeated...", 200, 500, red);
-			SDL_RenderPresent(renderer);
-			SDL_Delay(2000);
-			break;
-		}
-	}
 }
 
 
@@ -247,8 +88,6 @@ void Game::clean()
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	TTF_CloseFont(font);
-	SDL_DestroyTexture(playerTexture);
-	SDL_DestroyTexture(enemyTexture);
 	TTF_Quit();
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl; //debug
