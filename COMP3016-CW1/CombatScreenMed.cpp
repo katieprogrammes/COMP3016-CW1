@@ -1,7 +1,7 @@
-#include "CombatScreen.h"
+#include "CombatScreenMed.h"
 #include <iostream>
 
-CombatScreen::CombatScreen(SDL_Renderer* renderer, TTF_Font* font)
+CombatScreenMed::CombatScreenMed(SDL_Renderer* renderer, TTF_Font* font)
     : renderer(renderer), font(font), player(60, 20), enemy(100, 20, AttackType::LIGHTNING) {
 
     SDL_Surface* surface = IMG_Load("Assets/Witcharella.png");
@@ -45,7 +45,7 @@ CombatScreen::CombatScreen(SDL_Renderer* renderer, TTF_Font* font)
     deadTxtRect = { 25, 500, 750, 70 };
 }
 
-CombatScreen::~CombatScreen() {
+CombatScreenMed::~CombatScreenMed() {
     SDL_DestroyTexture(playerTexture);
     SDL_DestroyTexture(dmgPlayerTexture);
     SDL_DestroyTexture(enemyTexture);
@@ -53,7 +53,7 @@ CombatScreen::~CombatScreen() {
     SDL_DestroyTexture(deadTxtTex);
 }
 
-void CombatScreen::handleEvents(SDL_Event& event) {
+void CombatScreenMed::handleEvents(SDL_Event& event) {
     if (event.type == SDL_KEYDOWN) {
         if (event.key.keysym.sym == SDLK_m) {
             showTypeMatchup = !showTypeMatchup; // Toggle chart visibility
@@ -68,7 +68,7 @@ void CombatScreen::handleEvents(SDL_Event& event) {
     }
 }
 
-int CombatScreen::getPlayerMove(SDL_Event& event) 
+int CombatScreenMed::getPlayerMove(SDL_Event& event)
 {
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
@@ -83,7 +83,7 @@ int CombatScreen::getPlayerMove(SDL_Event& event)
     return 0;
 }
 
-void CombatScreen::update() {
+void CombatScreenMed::update() {
     if (!waitingForInput && !player.isDead() && !enemy.isDead()) {
         AttackType move = static_cast<AttackType>(playerChoice - 1);
         auto [effectiveness, damage] = player.attack(enemy, move);
@@ -133,7 +133,7 @@ void CombatScreen::update() {
     }
 }
 
-void CombatScreen::render(SDL_Renderer* renderer) {
+void CombatScreenMed::render(SDL_Renderer* renderer) {
     SDL_Color white = { 255, 255, 255 };
     SDL_RenderClear(renderer);
     renderText("Player HP: " + std::to_string(player.getHP()), 10, 10, white);
@@ -147,16 +147,16 @@ void CombatScreen::render(SDL_Renderer* renderer) {
     SDL_RenderPresent(renderer);
 }
 
-bool CombatScreen::isFinished() const {
+bool CombatScreenMed::isFinished() const {
     return finished;
 }
 
-bool CombatScreen::isSuccessful() const
+bool CombatScreenMed::isSuccessful() const
 {
     return successful;
 }
 
-void CombatScreen::renderText(const std::string& message, int x, int y, SDL_Color color) {
+void CombatScreenMed::renderText(const std::string& message, int x, int y, SDL_Color color) {
     if (!font || message.empty()) return;
 
     SDL_Surface* surface = TTF_RenderText_Solid(font, message.c_str(), color);

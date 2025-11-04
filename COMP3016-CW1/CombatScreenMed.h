@@ -8,17 +8,17 @@
 #include <SDL_ttf.h>
 #include <string>
 
-class CombatScreen : public Screen
+class CombatScreenMed : public Screen
 {
 public:
-	CombatScreen(SDL_Renderer* renderer, TTF_Font* font);
-	~CombatScreen();
+    CombatScreenMed(SDL_Renderer* renderer, TTF_Font* font);
+    ~CombatScreenMed();
 
-	void handleEvents(SDL_Event& event) override;
-	void update() override;
-	void render(SDL_Renderer* renderer) override;
+    void handleEvents(SDL_Event& event) override;
+    void update() override;
+    void render(SDL_Renderer* renderer) override;
 
-	bool isFinished() const;
+    bool isFinished() const;
     bool isSuccessful() const;
 
 private:
