@@ -110,7 +110,7 @@ void CombatScreen::update() {
         SDL_Delay(1500);
 
         if (enemy.isDead()) {
-            renderText("You defeated the enemy!", 250, 500, { 0, 255, 0 });
+            renderText("You defeated the enemy!", 250, 550, { 0, 255, 0 });
             SDL_RenderPresent(renderer);
             SDL_Delay(2000);
             finished = true;
@@ -142,7 +142,7 @@ void CombatScreen::render(SDL_Renderer* renderer) {
             SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
             SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
             SDL_RenderCopy(renderer, moveSetTex, nullptr, &moveSetRect);
-            renderText("Press 'm' to see the Matchup Chart", 315, 600, white);
+            renderText("Press 'm' to see the Matchup Chart", 250, 600, white);
             if (showTypeMatchup) {
                 SDL_RenderCopy(renderer, typeMatchupTex, nullptr, &typeMatchupRect);
             }

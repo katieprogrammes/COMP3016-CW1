@@ -99,6 +99,26 @@ int main(int argc, char* argv[])
 	}
 	else if (combat->isSuccessful()) {
 		delete combat;
+		TransitionScreen* transition = new TransitionScreen(game->getRenderer(), game->getFont()); // Pass font from Game
+		currentScreen = transition;
+
+		// Show transition screen until user presses a key
+		while (!transition->isReadyToStart() && game->running()) {
+			SDL_Event event;
+			while (SDL_PollEvent(&event)) {
+				if (event.type == SDL_QUIT) {
+					game->stopRunning();
+				}
+				currentScreen->handleEvents(event);
+			}
+
+			currentScreen->update();
+			currentScreen->render(game->getRenderer()); // Use Game's renderer
+
+			SDL_Delay(frameDelay);
+		}
+
+		delete transition;
 		CombatScreenMed* combatmed = new CombatScreenMed(game->getRenderer(), game->getFont());
 		currentScreen = combatmed;
 
@@ -116,8 +136,6 @@ int main(int argc, char* argv[])
 		delete combatmed;
 	}
 
-
-	//game->battleLoopMedium();
 	while (game->running())
 	{
 		frameStart = SDL_GetTicks();

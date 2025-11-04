@@ -19,7 +19,7 @@ CombatScreenMed::CombatScreenMed(SDL_Renderer* renderer, TTF_Font* font)
     SDL_FreeSurface(surface);
     deadPlayerRect = { 250, 150, 310, 396 };
 
-    surface = IMG_Load("Assets/Larry.png");
+    surface = IMG_Load("Assets/WizardAsta.png");
     enemyTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
     enemyRect = { 450, 150, 248, 303 };
