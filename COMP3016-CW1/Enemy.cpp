@@ -7,7 +7,6 @@ Enemy::Enemy(int health, int thwack, AttackType enemyType)
 	HP = health;
 	maxHP = HP;
 	this->enemyType = enemyType;
-	isProtected = false;
 }
 Enemy::~Enemy() {}
 
@@ -18,24 +17,12 @@ void Enemy::damaged(int baseDamage, AttackType playerMove)
 	TypeMatchup matchup;
 	float effectiveness = matchup.getEffectiveness(playerMove, enemyType);
 
-	int finalDamage = static_cast<int>(baseDamage * effectiveness);
-
-	if (isProtected)
-		HP -= finalDamage / 2;
-	else
+	int finalDamage = static_cast<int>(baseDamage);
 		HP -= finalDamage;
 
 	if (HP < 0) HP = 0;
 }
-void Enemy::protect()
-{
-	isProtected = true;
-}
 
-void Enemy::unprotect()
-{
-	isProtected = false;
-}
 void Enemy::noAttack()
 {
 	attackNow = false;
@@ -43,10 +30,6 @@ void Enemy::noAttack()
 bool Enemy::attackCheck()
 {
 	return attackNow;
-}
-bool Enemy::protectCheck()
-{
-	return isProtected;
 }
 bool Enemy::isDead()
 {

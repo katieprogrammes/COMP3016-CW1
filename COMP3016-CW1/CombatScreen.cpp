@@ -139,6 +139,7 @@ void CombatScreen::render(SDL_Renderer* renderer) {
     if (!player.isDead() && !enemy.isDead()) 
         {
             renderText("Player HP: " + std::to_string(player.getHP()), 10, 10, white);
+            renderText("Enemy HP: " + std::to_string(enemy.getHP()), 500, 10, white);
             SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
             SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
             SDL_RenderCopy(renderer, moveSetTex, nullptr, &moveSetRect);
