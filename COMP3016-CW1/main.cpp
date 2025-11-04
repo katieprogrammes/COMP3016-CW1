@@ -8,6 +8,8 @@
 #include "TransitionScreen.h"
 #include "CombatScreenMed.h"
 #include "DeathScreen.h"
+#include "TransitionScreen2.h"
+#include "CombatScreenHard.h"
 
 Game* game = nullptr;
 
@@ -153,7 +155,7 @@ int main(int argc, char* argv[])
 		}
 		else if (combatmed->isSuccessful()) {
 			delete combatmed;
-			TransitionScreen* transition = new TransitionScreen(game->getRenderer(), game->getFont()); // Pass font from Game
+			TransitionScreen2* transition = new TransitionScreen2(game->getRenderer(), game->getFont()); // Pass font from Game
 			currentScreen = transition;
 
 			// Show transition screen until user presses a key
@@ -173,6 +175,61 @@ int main(int argc, char* argv[])
 			}
 
 			delete transition;
+			CombatScreenHard* combathard = new CombatScreenHard(game->getRenderer(), game->getFont());
+			currentScreen = combathard;
+
+			while (game->running() && !combathard->isFinished()) {
+				SDL_Event event;
+				while (SDL_PollEvent(&event)) {
+					if (event.type == SDL_QUIT) game->stopRunning();
+					currentScreen->handleEvents(event);
+				}
+
+				currentScreen->update();
+				currentScreen->render(game->getRenderer());
+				SDL_Delay(frameDelay);
+			}
+			if (!combathard->isSuccessful())
+			{
+				DeathScreen* death = new DeathScreen(game->getRenderer(), game->getFont()); // Pass font from Game
+				currentScreen = death;
+				SDL_Event event;
+				while (SDL_PollEvent(&event)) {
+					if (event.type == SDL_QUIT) {
+						game->stopRunning();
+					}
+					currentScreen->handleEvents(event);
+				}
+
+				currentScreen->update();
+				currentScreen->render(game->getRenderer()); // Use Game's renderer
+				SDL_Delay(3000);
+
+				delete death;
+			}
+			else if (combathard->isSuccessful()) {
+				delete combathard;
+				TransitionScreen2* transition = new TransitionScreen2(game->getRenderer(), game->getFont()); // Pass font from Game
+				currentScreen = transition;
+
+				// Show transition screen until user presses a key
+				while (!transition->isReadyToStart() && game->running()) {
+					SDL_Event event;
+					while (SDL_PollEvent(&event)) {
+						if (event.type == SDL_QUIT) {
+							game->stopRunning();
+						}
+						currentScreen->handleEvents(event);
+					}
+
+					currentScreen->update();
+					currentScreen->render(game->getRenderer()); // Use Game's renderer
+
+					SDL_Delay(frameDelay);
+				}
+
+				delete transition;
+			}
 		}
 	}
 

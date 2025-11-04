@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CombatScreen.h" />
+    <ClInclude Include="CombatScreenHard.h" />
     <ClInclude Include="CombatScreenMed.h" />
     <ClInclude Include="DeathScreen.h" />
     <ClInclude Include="IntroScreen.h" />
@@ -29,10 +30,12 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="StoryScreen.h" />
     <ClInclude Include="TransitionScreen.h" />
+    <ClInclude Include="TransitionScreen2.h" />
     <ClInclude Include="TypeMatchup.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CombatScreen.cpp" />
+    <ClCompile Include="CombatScreenHard.cpp" />
     <ClCompile Include="CombatScreenMed.cpp" />
     <ClCompile Include="DeathScreen.cpp" />
     <ClCompile Include="IntroScreen.cpp" />
@@ -42,6 +45,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StoryScreen.cpp" />
     <ClCompile Include="TransitionScreen.cpp" />
+    <ClCompile Include="TransitionScreen2.cpp" />
     <ClCompile Include="TypeMatchup.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
