@@ -2,17 +2,17 @@
 #include <iostream>
 
 CombatScreen::CombatScreen(SDL_Renderer* renderer, TTF_Font* font)
-    : renderer(renderer), font(font), player(20, 20), enemy(100, 20, AttackType::LIGHTNING) {
+    : renderer(renderer), font(font), player(60, 20), enemy(100, 20, AttackType::LIGHTNING) {
 
     SDL_Surface* surface = IMG_Load("Assets/Witcharella.png");
     playerTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
-    playerRect = { 50, 150, 180, 296 }; //xpos, ypos, width, height
+    playerRect = { 100, 150, 180, 296 }; //xpos, ypos, width, height
 
     surface = IMG_Load("Assets/DMGWitcharella.png");
     dmgPlayerTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
-    dmgPlayerRect = { 250, 150, 180, 296 };
+    dmgPlayerRect = { 100, 150, 180, 296 };
 
     surface = IMG_Load("Assets/DeadWitcharella.png");
     deadPlayerTexture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -22,9 +22,14 @@ CombatScreen::CombatScreen(SDL_Renderer* renderer, TTF_Font* font)
     surface = IMG_Load("Assets/Larry.png");
     enemyTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
-    enemyRect = { 500, 150, 248, 303 };
+    enemyRect = { 450, 150, 248, 303 };
 
-    surface = IMG_Load("Assets/typeMatchup.png");
+    surface = IMG_Load("Assets/DMGLarry.png");
+    dmgEnemyTexture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    dmgEnemyRect = { 450, 150, 248, 303 };
+
+    surface = IMG_Load("Assets/matchupTable.png");
     typeMatchupTex = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
     typeMatchupRect = { 10, 400, 757, 226 };
@@ -49,10 +54,16 @@ CombatScreen::~CombatScreen() {
 }
 
 void CombatScreen::handleEvents(SDL_Event& event) {
-    if (waitingForInput) {
-        playerChoice = getPlayerMove(event);
-        if (playerChoice != 0) {
-            waitingForInput = false;
+    if (event.type == SDL_KEYDOWN) {
+        if (event.key.keysym.sym == SDLK_m) {
+            showTypeMatchup = !showTypeMatchup; // Toggle chart visibility
+        }
+
+        if (waitingForInput) {
+            playerChoice = getPlayerMove(event);
+            if (playerChoice != 0) {
+                waitingForInput = false;
+            }
         }
     }
 }
@@ -77,20 +88,21 @@ void CombatScreen::update() {
         AttackType move = static_cast<AttackType>(playerChoice - 1);
         auto [effectiveness, damage] = player.attack(enemy, move);
 
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
+        SDL_RenderCopy(renderer, dmgEnemyTexture, nullptr, &dmgEnemyRect);
         std::string feedback = "You used " + TypeMatchup::typeToString(move) +
             ". Damage dealt: " + std::to_string(damage);
         SDL_Color pink = { 255, 230, 247 };
         SDL_Color effectColor = TypeMatchup::effectColor(effectiveness);
 
-        SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
-        SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
-        renderText(feedback, 300, 100, pink);
-        renderText(TypeMatchup::effectToString(effectiveness), 350, 125, effectColor);
+        renderText(feedback, 400, 100, pink);
+        renderText(TypeMatchup::effectToString(effectiveness), 470, 125, effectColor);
         SDL_RenderPresent(renderer);
         SDL_Delay(3000);
 
         SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
         SDL_RenderCopy(renderer, dmgPlayerTexture, nullptr, &dmgPlayerRect);
         renderText("Enemy Turn: Enemy attacks!", 200, 500, { 255, 0, 0 });
         player.takeDamage(20);
@@ -98,7 +110,7 @@ void CombatScreen::update() {
         SDL_Delay(1500);
 
         if (enemy.isDead()) {
-            renderText("You defeated the enemy!", 200, 500, { 0, 255, 0 });
+            renderText("You defeated the enemy!", 250, 500, { 0, 255, 0 });
             SDL_RenderPresent(renderer);
             SDL_Delay(2000);
             finished = true;
@@ -125,7 +137,10 @@ void CombatScreen::render(SDL_Renderer* renderer) {
     SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
     SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
     SDL_RenderCopy(renderer, moveSetTex, nullptr, &moveSetRect);
-    renderText("Press 'm' to see the Matchup Chart", 25, 600, white);
+    renderText("Press 'm' to see the Matchup Chart", 315, 600, white);
+    if (showTypeMatchup) {
+        SDL_RenderCopy(renderer, typeMatchupTex, nullptr, &typeMatchupRect);
+    }
     SDL_RenderPresent(renderer);
 }
 

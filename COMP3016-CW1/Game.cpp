@@ -49,7 +49,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		return;
 	}
 
-	font = TTF_OpenFont("Assets/arial.ttf", 20);
+	font = TTF_OpenFont("Assets/MSGothic.ttf", 20);
 	if (!font) {
 		std::cout << "Font Load Failed: " << TTF_GetError() << std::endl;
 		isRunning = false;
