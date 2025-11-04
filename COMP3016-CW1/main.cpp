@@ -90,14 +90,14 @@ int main(int argc, char* argv[])
 			}
 			currentScreen->handleEvents(event);
 		}
-
+		
 		currentScreen->update();
 		currentScreen->render(game->getRenderer()); // Use Game's renderer
-
-		SDL_Delay(frameDelay);
+		SDL_Delay(3000);
+		
 		delete death;
 	}
-	else {
+	else if (combat->isSuccessful()) {
 		delete combat;
 		CombatScreenMed* combatmed = new CombatScreenMed(game->getRenderer(), game->getFont());
 		currentScreen = combatmed;

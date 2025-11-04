@@ -136,14 +136,17 @@ void CombatScreen::update() {
 void CombatScreen::render(SDL_Renderer* renderer) {
     SDL_Color white = { 255, 255, 255 };
     SDL_RenderClear(renderer);
-    renderText("Player HP: " + std::to_string(player.getHP()), 10, 10, white);
-    SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
-    SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
-    SDL_RenderCopy(renderer, moveSetTex, nullptr, &moveSetRect);
-    renderText("Press 'm' to see the Matchup Chart", 315, 600, white);
-    if (showTypeMatchup) {
-        SDL_RenderCopy(renderer, typeMatchupTex, nullptr, &typeMatchupRect);
-    }
+    if (!player.isDead() && !enemy.isDead()) 
+        {
+            renderText("Player HP: " + std::to_string(player.getHP()), 10, 10, white);
+            SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
+            SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
+            SDL_RenderCopy(renderer, moveSetTex, nullptr, &moveSetRect);
+            renderText("Press 'm' to see the Matchup Chart", 315, 600, white);
+            if (showTypeMatchup) {
+                SDL_RenderCopy(renderer, typeMatchupTex, nullptr, &typeMatchupRect);
+            }
+        }
     SDL_RenderPresent(renderer);
 }
 

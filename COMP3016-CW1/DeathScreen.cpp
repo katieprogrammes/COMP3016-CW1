@@ -35,7 +35,6 @@ void DeathScreen::handleEvents(SDL_Event& event) {
 }
 
 void DeathScreen::update() {
-    SDL_Delay(1500);
 }
 
 
