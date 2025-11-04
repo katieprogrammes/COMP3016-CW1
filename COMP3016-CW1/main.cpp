@@ -10,6 +10,7 @@
 #include "DeathScreen.h"
 #include "TransitionScreen2.h"
 #include "CombatScreenHard.h"
+#include "SuccessScreens.h"
 
 Game* game = nullptr;
 
@@ -209,26 +210,22 @@ int main(int argc, char* argv[])
 			}
 			else if (combathard->isSuccessful()) {
 				delete combathard;
-				TransitionScreen2* transition = new TransitionScreen2(game->getRenderer(), game->getFont()); // Pass font from Game
-				currentScreen = transition;
+				SuccessScreens* successend = new SuccessScreens(game->getRenderer());
+				currentScreen = successend;
 
-				// Show transition screen until user presses a key
-				while (!transition->isReadyToStart() && game->running()) {
+				while (!successend->nextScreenReady && game->running()) {
 					SDL_Event event;
 					while (SDL_PollEvent(&event)) {
-						if (event.type == SDL_QUIT) {
-							game->stopRunning();
-						}
+						if (event.type == SDL_QUIT) game->stopRunning();
 						currentScreen->handleEvents(event);
 					}
 
 					currentScreen->update();
-					currentScreen->render(game->getRenderer()); // Use Game's renderer
-
+					currentScreen->render(game->getRenderer());
 					SDL_Delay(frameDelay);
 				}
 
-				delete transition;
+				delete successend;
 			}
 		}
 	}

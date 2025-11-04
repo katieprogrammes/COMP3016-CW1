@@ -29,6 +29,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="StoryScreen.h" />
+    <ClInclude Include="SuccessScreens.h" />
     <ClInclude Include="TransitionScreen.h" />
     <ClInclude Include="TransitionScreen2.h" />
     <ClInclude Include="TypeMatchup.h" />
@@ -44,6 +45,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StoryScreen.cpp" />
+    <ClCompile Include="SuccessScreens.cpp" />
     <ClCompile Include="TransitionScreen.cpp" />
     <ClCompile Include="TransitionScreen2.cpp" />
     <ClCompile Include="TypeMatchup.cpp" />

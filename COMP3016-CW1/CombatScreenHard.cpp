@@ -2,7 +2,7 @@
 #include <iostream>
 
 CombatScreenHard::CombatScreenHard(SDL_Renderer* renderer, TTF_Font* font)
-    : renderer(renderer), font(font), player(100, 20), enemy(120, 30, AttackType::PHYSICAL) {
+    : renderer(renderer), font(font), player(100, 20), enemy(120, 30, AttackType::WATER) {
 
     SDL_Surface* surface = IMG_Load("Assets/Witcharella.png");
     playerTexture = SDL_CreateTextureFromSurface(renderer, surface);
