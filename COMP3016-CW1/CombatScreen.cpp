@@ -2,7 +2,7 @@
 #include <iostream>
 
 CombatScreen::CombatScreen(SDL_Renderer* renderer, TTF_Font* font)
-    : renderer(renderer), font(font), player(60, 20), enemy(100, 20, AttackType::LIGHTNING) {
+    : renderer(renderer), font(font), player(100, 20), enemy(100, 20, AttackType::LIGHTNING) {
 
     SDL_Surface* surface = IMG_Load("Assets/Witcharella.png");
     playerTexture = SDL_CreateTextureFromSurface(renderer, surface);

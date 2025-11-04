@@ -2,7 +2,7 @@
 #include <iostream>
 
 CombatScreenMed::CombatScreenMed(SDL_Renderer* renderer, TTF_Font* font)
-    : renderer(renderer), font(font), player(60, 20), enemy(100, 20, AttackType::LIGHTNING) {
+    : renderer(renderer), font(font), player(100, 20), enemy(100, 30, AttackType::WATER) {
 
     SDL_Surface* surface = IMG_Load("Assets/Witcharella.png");
     playerTexture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -19,12 +19,12 @@ CombatScreenMed::CombatScreenMed(SDL_Renderer* renderer, TTF_Font* font)
     SDL_FreeSurface(surface);
     deadPlayerRect = { 250, 150, 310, 396 };
 
-    surface = IMG_Load("Assets/WizardAsta.png");
+    surface = IMG_Load("Assets/Missy.png");
     enemyTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
     enemyRect = { 450, 150, 248, 303 };
 
-    surface = IMG_Load("Assets/DMGLarry.png");
+    surface = IMG_Load("Assets/dmgMissy.png");
     dmgEnemyTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
     dmgEnemyRect = { 450, 150, 248, 303 };
@@ -110,7 +110,7 @@ void CombatScreenMed::update() {
         SDL_Delay(1500);
 
         if (enemy.isDead()) {
-            renderText("You defeated the enemy!", 250, 500, { 0, 255, 0 });
+            renderText("You defeated the enemy!", 250, 550, { 0, 255, 0 });
             SDL_RenderPresent(renderer);
             SDL_Delay(2000);
             finished = true;
@@ -142,7 +142,7 @@ void CombatScreenMed::render(SDL_Renderer* renderer) {
         SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
         SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
         SDL_RenderCopy(renderer, moveSetTex, nullptr, &moveSetRect);
-        renderText("Press 'm' to see the Matchup Chart", 315, 600, white);
+        renderText("Press 'm' to see the Matchup Chart", 250, 600, white);
         if (showTypeMatchup) {
             SDL_RenderCopy(renderer, typeMatchupTex, nullptr, &typeMatchupRect);
         }
