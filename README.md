@@ -53,5 +53,41 @@ The game is also story based with a plot that revolves around saving your best f
 
 <img width="395" height="314" alt="image" src="https://github.com/user-attachments/assets/b0fababd-d7ec-4b13-8736-8b326036c4a5" />
 
+The pre and post combat Story Screens are separated to make sure the user can only see the post-combat story once they have completed the hardest level:
+
+<img width="334" height="160" alt="image" src="https://github.com/user-attachments/assets/2d5b09c4-8498-4428-bdaa-74a83efe8a31" />
+
+<img width="315" height="172" alt="image" src="https://github.com/user-attachments/assets/8781ec5d-44a9-4663-b26c-3a687288cb53" />
+
+For my Turn Based Combat System I handled the main logic in the update loop. The game waits for the player to pick their move and checks to see if both the enemy and player are still alive:
+
+<img width="278" height="243" alt="image" src="https://github.com/user-attachments/assets/d772e6cd-a392-46d0-a157-da0b6d7d269d" />
+
+After passing the player move and enemy type through the previously mentioned Effectiveness Logic, the game then displays assets, some of which are dynamic to the effectiveness level such as sound effects and text. The enemy turn then occurs, dealing a fixed amount of damage to the player. The loop then checks to see if their participant is dead before looping back to the start:
+
+<img width="318" height="262" alt="image" src="https://github.com/user-attachments/assets/b6ef8d6f-187b-43db-bc17-7011059c0b1e" />
+
+If the player dies, the variable 'successful' is returned as false to the main loop. Then the Death Screen is created and rendered before the game enters cleanup to destroy all assets and prevent memory leaks:
+
+<img width="341" height="206" alt="image" src="https://github.com/user-attachments/assets/f225bca5-072f-4552-afb4-1abeb8346883" />
+
+<img width="259" height="139" alt="image" src="https://github.com/user-attachments/assets/8aebd87b-e88f-434d-ab68-d3e7a9b2f362" />
+
+# Testing My Code
+
+I thoroughly tested my code continuously during development by only making incremental changes alongside pushing to git between successful tests. These incremental successes helped with morale as well as making it easier to revert back to a working version of my game if I could not successfuly fix errors. As seen in the above screenshot, I also made consistent use of cout statements to check that everything was running as it should and find where any errors or sticking points were. I also used cout statements when creating and finding assets so I could see if an asset was either missing on screen because a path was incorrect or whether I had rendered the asset at the wrong size. 
+
+<img width="386" height="158" alt="image" src="https://github.com/user-attachments/assets/08eddde6-f543-4a46-8282-5bfe7e7a8b5a" />
+
+# Evaluation
+
+Although I had to decrease the scope of my original idea due to time constraints and illness, I have finally reached a point where I am very content with the state of my game. While the concept of a team had to be scrapped, I was able to keep in the turn based aspect and type matchup mechanic. Prior to this assessment I had extremely little knowledge of C++ however I have managed to make a working game with assets and a storyline. In the future I will be less hesitant to use AI as a learning tool for understanding code and libraries.
+
+
+
+
+
+
+
 
 
