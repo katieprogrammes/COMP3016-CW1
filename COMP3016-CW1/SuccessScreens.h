@@ -19,6 +19,7 @@ private:
 	std::vector<SDL_Texture*> successTextures;
 	SDL_Renderer* renderer;
 	SDL_Rect successRect;
+	Mix_Music* bgMusic;
 	int currentIndex = 0;
 };
 

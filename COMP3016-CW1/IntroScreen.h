@@ -22,7 +22,7 @@ private:
     SDL_Renderer* renderer;
     SDL_Rect introRect;
     TTF_Font* font;
-
+    Mix_Music* bgMusic;
     void renderText(SDL_Renderer* renderer, const std::string& message, int x, int y, SDL_Color color);
 };
 

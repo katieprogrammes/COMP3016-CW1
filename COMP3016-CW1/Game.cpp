@@ -55,6 +55,13 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 		return;
 	}
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) 
+	{
+		std::cout << "SDL_mixer Init Failed: " << Mix_GetError() << std::endl;
+		isRunning = false;
+		return;
+	}
+
 }
 
 

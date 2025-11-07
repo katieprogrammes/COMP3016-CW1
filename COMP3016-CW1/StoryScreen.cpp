@@ -38,6 +38,10 @@ StoryScreen::StoryScreen(SDL_Renderer* renderer, TTF_Font* font)
     storyRect.y = 0;
     storyRect.w = 800;
     storyRect.h = 640;
+
+    bgMusic = Mix_LoadMUS("Assets/Intro.mp3");
+    Mix_PlayMusic(bgMusic, -1);
+    Mix_VolumeMusic(75);
 }
 StoryScreen::~StoryScreen() 
 {
@@ -45,6 +49,7 @@ StoryScreen::~StoryScreen()
     {
         SDL_DestroyTexture(texture);
     }
+    Mix_FreeMusic(bgMusic);
 }
 void StoryScreen::handleEvents(SDL_Event& event) 
 {

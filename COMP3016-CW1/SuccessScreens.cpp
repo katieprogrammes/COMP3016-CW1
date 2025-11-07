@@ -35,6 +35,9 @@ SuccessScreens::SuccessScreens(SDL_Renderer* renderer)
     successRect.y = 0;
     successRect.w = 800;
     successRect.h = 640;
+
+    bgMusic = Mix_LoadMUS("Assets/Ending.mp3");
+    Mix_PlayMusic(bgMusic, -1);
 }
 SuccessScreens::~SuccessScreens()
 {
@@ -42,6 +45,7 @@ SuccessScreens::~SuccessScreens()
     {
         SDL_DestroyTexture(texture);
     }
+    Mix_FreeMusic(bgMusic);
 }
 void SuccessScreens::handleEvents(SDL_Event& event)
 {
@@ -67,7 +71,6 @@ void SuccessScreens::render(SDL_Renderer* renderer)
         SDL_Color white = { 255, 255, 255 };
 
     }
-
     SDL_RenderPresent(renderer);
 }
 

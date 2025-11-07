@@ -9,8 +9,8 @@ enum AttackType //attack types
 	WATER,
 	PLANT,
 	LIGHTNING,
+	DARK,
 	PHYSICAL,
-	DARK
 };
 
 class TypeMatchup

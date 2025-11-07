@@ -23,9 +23,15 @@ TransitionScreen::TransitionScreen(SDL_Renderer* renderer, TTF_Font* font)
     transRect.y = 0; // Y position
     transRect.w = 800;  // Width of image
     transRect.h = 640;  // Height of image
+
+    bgMusic = Mix_LoadMUS("Assets/transition.wav");
+    Mix_PlayMusic(bgMusic, -1);
 }
 
-TransitionScreen::~TransitionScreen() {}
+TransitionScreen::~TransitionScreen() 
+{
+    Mix_FreeMusic(bgMusic);
+}
 
 void TransitionScreen::handleEvents(SDL_Event& event) {
     if (event.type == SDL_KEYDOWN) {

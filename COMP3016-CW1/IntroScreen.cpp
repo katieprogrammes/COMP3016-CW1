@@ -23,9 +23,15 @@ IntroScreen::IntroScreen(SDL_Renderer* renderer, TTF_Font* font)
     introRect.y = 0; // Y position
     introRect.w = 800;  // Width of image
     introRect.h = 640;  // Height of image
+
+    bgMusic = Mix_LoadMUS("Assets/Intro.mp3");
+    Mix_PlayMusic(bgMusic, -1);
 }
 
-IntroScreen::~IntroScreen() {}
+IntroScreen::~IntroScreen() 
+{
+    Mix_FreeMusic(bgMusic);
+}
 
 void IntroScreen::handleEvents(SDL_Event& event) {
     if (event.type == SDL_KEYDOWN) {
@@ -44,7 +50,7 @@ void IntroScreen::render(SDL_Renderer* renderer) {
     if (introTexture) {
         SDL_RenderCopy(renderer, introTexture, nullptr, &introRect);
     }
-    renderText(renderer, "Press any key to start...", 250, 500, white);
+    renderText(renderer, "Press any key to start...", 225, 480, white);
     SDL_RenderPresent(renderer);
 }
 

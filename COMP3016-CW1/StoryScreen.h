@@ -21,6 +21,7 @@ private:
 	SDL_Renderer* renderer;
 	SDL_Rect storyRect;
 	TTF_Font* font;
+	Mix_Music* bgMusic;
 	int currentIndex = 0;
 
 	void renderText(SDL_Renderer* renderer, const std::string& message, int x, int y, SDL_Color color);
