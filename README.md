@@ -91,6 +91,8 @@ I thoroughly tested my code continuously during development, by only making incr
 
 Although I had to decrease the scope of my original idea due to time constraints and illness, I have finally reached a point where I am very content with the state of my game. While the concept of a team had to be scrapped, I was able to keep in the turn based aspect and type matchup mechanic. Prior to this assessment I had extremely little knowledge of C++ however I have managed to make a working game with assets and a storyline. In the future I will be less hesitant to use AI as a learning tool for understanding code and libraries.
 
+## Youtube Link
+https://youtu.be/Cr940B7iY-k
 ---
 
 ## Asset Credits
