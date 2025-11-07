@@ -2,7 +2,7 @@
 #include <iostream>
 
 CombatScreenMed::CombatScreenMed(SDL_Renderer* renderer, TTF_Font* font)
-    : renderer(renderer), font(font), player(100, 20), enemy(100, 30, AttackType::WATER) {
+    : renderer(renderer), font(font), player(100, 20), enemy(100, 20, AttackType::WATER) {
 
     SDL_Surface* surface = IMG_Load("Assets/Witcharella.png");
     playerTexture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -43,6 +43,15 @@ CombatScreenMed::CombatScreenMed(SDL_Renderer* renderer, TTF_Font* font)
     deadTxtTex = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
     deadTxtRect = { 25, 500, 750, 70 };
+
+    dmgSound = Mix_LoadWAV("Assets/dmgSound.wav");
+    hitSound = Mix_LoadWAV("Assets/Magic.wav");
+    superEffectiveSound = Mix_LoadWAV("Assets/super.wav");
+    notEffectiveSound = Mix_LoadWAV("Assets/weak.wav");
+    victorySound = Mix_LoadWAV("Assets/victory.wav");
+    deathSound = Mix_LoadWAV("Assets/gameOver.wav");
+    bgMusic = Mix_LoadMUS("Assets/combatMusic.mp3");
+    Mix_PlayMusic(bgMusic, -1);
 }
 
 CombatScreenMed::~CombatScreenMed() {
@@ -51,6 +60,16 @@ CombatScreenMed::~CombatScreenMed() {
     SDL_DestroyTexture(enemyTexture);
     SDL_DestroyTexture(typeMatchupTex);
     SDL_DestroyTexture(deadTxtTex);
+    SDL_DestroyTexture(deadPlayerTexture);
+    SDL_DestroyTexture(dmgEnemyTexture);
+    SDL_DestroyTexture(moveSetTex);
+    Mix_FreeChunk(dmgSound);
+    Mix_FreeMusic(bgMusic);
+    Mix_FreeChunk(hitSound);
+    Mix_FreeChunk(superEffectiveSound);
+    Mix_FreeChunk(notEffectiveSound);
+    Mix_FreeChunk(victorySound);
+    Mix_FreeChunk(deathSound);
 }
 
 void CombatScreenMed::handleEvents(SDL_Event& event) {
@@ -87,7 +106,7 @@ void CombatScreenMed::update() {
     if (!waitingForInput && !player.isDead() && !enemy.isDead()) {
         AttackType move = static_cast<AttackType>(playerChoice - 1);
         auto [effectiveness, damage] = player.attack(enemy, move);
-
+        Mix_PlayChannel(-1, hitSound, 0);
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
         SDL_RenderCopy(renderer, dmgEnemyTexture, nullptr, &dmgEnemyRect);
@@ -95,6 +114,12 @@ void CombatScreenMed::update() {
             ". Damage dealt: " + std::to_string(damage);
         SDL_Color pink = { 255, 230, 247 };
         SDL_Color effectColor = TypeMatchup::effectColor(effectiveness);
+        if (effectiveness >= 2.0f) {
+            Mix_PlayChannel(-1, superEffectiveSound, 0);
+        }
+        else if (effectiveness <= 0.5f) {
+            Mix_PlayChannel(-1, notEffectiveSound, 0);
+        }
 
         renderText(feedback, 400, 100, pink);
         renderText(TypeMatchup::effectToString(effectiveness), 470, 125, effectColor);
@@ -105,12 +130,14 @@ void CombatScreenMed::update() {
         SDL_RenderCopy(renderer, enemyTexture, nullptr, &enemyRect);
         SDL_RenderCopy(renderer, dmgPlayerTexture, nullptr, &dmgPlayerRect);
         renderText("Enemy Turn: Enemy attacks!", 200, 500, { 255, 0, 0 });
+        Mix_PlayChannel(-1, dmgSound, 0);
         player.takeDamage(20);
         SDL_RenderPresent(renderer);
         SDL_Delay(1500);
 
         if (enemy.isDead()) {
             renderText("You defeated the enemy!", 250, 550, { 0, 255, 0 });
+            Mix_PlayChannel(-1, victorySound, 0);
             SDL_RenderPresent(renderer);
             SDL_Delay(2000);
             finished = true;
@@ -118,6 +145,7 @@ void CombatScreenMed::update() {
         }
         if (player.isDead()) {
             SDL_RenderClear(renderer);
+            Mix_PlayChannel(-1, deathSound, 0);
             SDL_RenderCopy(renderer, deadPlayerTexture, nullptr, &deadPlayerRect);
             SDL_RenderCopy(renderer, deadTxtTex, nullptr, &deadTxtRect);
             SDL_RenderPresent(renderer);

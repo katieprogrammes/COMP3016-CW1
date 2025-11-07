@@ -60,6 +60,9 @@ CombatScreen::~CombatScreen() {
     SDL_DestroyTexture(enemyTexture);
     SDL_DestroyTexture(typeMatchupTex);
     SDL_DestroyTexture(deadTxtTex);
+    SDL_DestroyTexture(deadPlayerTexture);
+    SDL_DestroyTexture(dmgEnemyTexture);
+    SDL_DestroyTexture(moveSetTex);
     Mix_FreeChunk(dmgSound);
     Mix_FreeMusic(bgMusic);
     Mix_FreeChunk(hitSound);

@@ -54,6 +54,13 @@ private:
     int playerChoice = 0;
     bool showTypeMatchup = false;
 
+    Mix_Chunk* dmgSound;
+    Mix_Chunk* hitSound;
+    Mix_Chunk* superEffectiveSound;
+    Mix_Chunk* notEffectiveSound;
+    Mix_Chunk* victorySound;
+    Mix_Music* bgMusic;
+    Mix_Chunk* deathSound;
 
     void renderText(const std::string& message, int x, int y, SDL_Color color);
     int getPlayerMove(SDL_Event& event);
