@@ -26,12 +26,13 @@ DeathScreen::DeathScreen(SDL_Renderer* renderer, TTF_Font* font)
     deathRect.h = 640;  // Height of image
 }
 
-DeathScreen::~DeathScreen() {}
+DeathScreen::~DeathScreen() 
+{
+    SDL_DestroyTexture(deathTexture);
+}
 
 void DeathScreen::handleEvents(SDL_Event& event) {
-    if (event.type == SDL_KEYDOWN) {
-        SDL_Quit();
-    }
+
 }
 
 void DeathScreen::update() {

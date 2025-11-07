@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) {
-				game->stopRunning();
+				
 			}
 			currentScreen->handleEvents(event);
 		}
@@ -97,6 +97,9 @@ int main(int argc, char* argv[])
 		currentScreen->update();
 		currentScreen->render(game->getRenderer()); // Use Game's renderer
 		SDL_Delay(3000);
+		game->stopRunning();
+		std::cout << "Starting Cleanup" << std::endl; //debug
+		game->clean();
 		
 		delete death;
 	}
@@ -143,7 +146,7 @@ int main(int argc, char* argv[])
 			SDL_Event event;
 			while (SDL_PollEvent(&event)) {
 				if (event.type == SDL_QUIT) {
-					game->stopRunning();
+
 				}
 				currentScreen->handleEvents(event);
 			}
@@ -151,6 +154,9 @@ int main(int argc, char* argv[])
 			currentScreen->update();
 			currentScreen->render(game->getRenderer()); // Use Game's renderer
 			SDL_Delay(3000);
+			game->stopRunning();
+			std::cout << "Starting Cleanup" << std::endl; //debug
+			game->clean();
 
 			delete death;
 		}
@@ -197,7 +203,7 @@ int main(int argc, char* argv[])
 				SDL_Event event;
 				while (SDL_PollEvent(&event)) {
 					if (event.type == SDL_QUIT) {
-						game->stopRunning();
+
 					}
 					currentScreen->handleEvents(event);
 				}
@@ -205,6 +211,9 @@ int main(int argc, char* argv[])
 				currentScreen->update();
 				currentScreen->render(game->getRenderer()); // Use Game's renderer
 				SDL_Delay(3000);
+				game->stopRunning();
+				std::cout << "Starting Cleanup" << std::endl; //debug
+				game->clean();
 
 				delete death;
 			}
@@ -226,6 +235,9 @@ int main(int argc, char* argv[])
 				}
 
 				delete successend;
+				game->stopRunning();
+				std::cout << "Starting Cleanup" << std::endl; //debug
+				game->clean();
 			}
 		}
 	}
@@ -246,5 +258,6 @@ int main(int argc, char* argv[])
 	};
 
 	game->clean();
+	delete game;
 	return 0;
 }

@@ -92,10 +92,15 @@ void Game::render()
 
 void Game::clean()
 {
+	std::cout << "Starting Cleanup" << std::endl; //debug
 	SDL_DestroyWindow(window);
+	std::cout << "Window Cleaned" << std::endl; //debug
 	SDL_DestroyRenderer(renderer);
-	TTF_CloseFont(font);
+	std::cout << "Renderer Cleaned" << std::endl; //debug
+	Mix_CloseAudio();
+	std::cout << "Audio Cleaned" << std::endl; //debug
 	TTF_Quit();
+	std::cout << "TTF Cleaned" << std::endl; //debug
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl; //debug
 }
