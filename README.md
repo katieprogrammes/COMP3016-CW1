@@ -14,6 +14,12 @@ The dependencies used were:
    
 They are all licenced under the zlib licence which can be found here: https://www.libsdl.org/license.php
 
+## How to Compile
+
+You can clone from github into Visual Studio then open the .sln (solution) file and you can then either run through the Debug or Release configuration (x64 version).
+
+The .exe file provided in Release/x64 should run without any additional setup.
+
 ---
 
 ## Use of AI Description
