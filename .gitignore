@@ -42,6 +42,8 @@
 # debug information files
 *.dwo
 /.vs
-/COMP3016-CW1/x64/Debug
-
+/COMP3016-CW1/x64/
+/x64/Debug
+!/x64/Release/*.exe
+!/x64/Release/*.dll
 
