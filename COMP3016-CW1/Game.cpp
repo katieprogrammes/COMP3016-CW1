@@ -43,7 +43,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		isRunning = false;
 	}
-	if (TTF_Init() == -1) {
+	if (TTF_Init() == -1) { //Initialising font
 		std::cout << "TTF Init Failed: " << TTF_GetError() << std::endl;
 		isRunning = false;
 		return;
@@ -55,7 +55,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 		return;
 	}
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) 
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) //Initialising audio
 	{
 		std::cout << "SDL_mixer Init Failed: " << Mix_GetError() << std::endl;
 		isRunning = false;
@@ -72,7 +72,7 @@ void Game::handleEvents()
 	SDL_PollEvent(&event);
 	switch (event.type)
 	{
-	case SDL_QUIT:
+	case SDL_QUIT: //Quitting the game
 		isRunning = false;
 		break;
 	default:

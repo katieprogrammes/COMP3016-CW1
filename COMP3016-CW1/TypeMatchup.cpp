@@ -36,7 +36,7 @@ float TypeMatchup::getEffectiveness(AttackType playerMove, AttackType enemyType)
     return 1.0f; // Neutral effectiveness
 }
 
-std::string TypeMatchup::typeToString(AttackType type) {
+std::string TypeMatchup::typeToString(AttackType type) { //Passing type to string for output
     switch (type) {
     case AttackType::FIRE: return "Fire";
     case AttackType::WATER: return "Water";
@@ -46,13 +46,13 @@ std::string TypeMatchup::typeToString(AttackType type) {
     default: return "Physical";
     }
 }
-std::string TypeMatchup::effectToString(float value)
+std::string TypeMatchup::effectToString(float value) //Passing effectiveness as a float
 {
     if (value >= 2.0f) return "It's Super Effective!";
     else if (value <= 0.5f) return "It's Not Very Effective...";
     else return "It's effective.";
 }
-SDL_Color TypeMatchup::effectColor(float value)
+SDL_Color TypeMatchup::effectColor(float value) //Dynamic colour for effectiveness
 {
     if (value >= 2.0f) return { 0, 230, 0 };
     else if (value <= 0.5f) return { 230, 46, 0 };

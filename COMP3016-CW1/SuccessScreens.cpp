@@ -5,7 +5,7 @@
 SuccessScreens::SuccessScreens(SDL_Renderer* renderer)
     : renderer(renderer)
 {
-    //List of Story Screen paths
+    //List of Success Screen paths
     std::vector<std::string> SuccessScreenss
     {
         "Assets/SuccessScreen1.png",

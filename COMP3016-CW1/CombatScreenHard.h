@@ -64,6 +64,5 @@ private:
 
     void renderText(const std::string& message, int x, int y, SDL_Color color);
     int getPlayerMove(SDL_Event& event);
-    void controlChart(SDL_Event& event);
 };
 

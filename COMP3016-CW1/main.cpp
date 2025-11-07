@@ -17,11 +17,7 @@ Game* game = nullptr;
 int main(int argc, char* argv[])
 {
 
-	TypeMatchup matchup;
-	AttackType playerMove = AttackType::FIRE;
-	AttackType enemyType = AttackType::PLANT;
-	float effectiveness = matchup.getEffectiveness(playerMove, enemyType);
-
+	//initialising game
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
 
@@ -44,12 +40,14 @@ int main(int argc, char* argv[])
 		}
 
 		currentScreen->update();
-		currentScreen->render(game->getRenderer()); // Use Game's renderer
+		currentScreen->render(game->getRenderer());
 
 		SDL_Delay(frameDelay);
 	}
 
 	delete intro;
+
+	//Story Screens
 	StoryScreen* story = new StoryScreen(game->getRenderer(), game->getFont());
 	currentScreen = story;
 
@@ -67,7 +65,7 @@ int main(int argc, char* argv[])
 
 	delete story;
 
-
+	//First Combat Level
 	CombatScreen* combat = new CombatScreen(game->getRenderer(), game->getFont());
 	currentScreen = combat;
 
@@ -82,9 +80,11 @@ int main(int argc, char* argv[])
 		currentScreen->render(game->getRenderer());
 		SDL_Delay(frameDelay);
 	}
+
+	//If player dies
 	if (!combat->isSuccessful()) 
 	{
-		DeathScreen* death = new DeathScreen(game->getRenderer(), game->getFont()); // Pass font from Game
+		DeathScreen* death = new DeathScreen(game->getRenderer(), game->getFont());
 		currentScreen = death;
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 		}
 		
 		currentScreen->update();
-		currentScreen->render(game->getRenderer()); // Use Game's renderer
+		currentScreen->render(game->getRenderer());
 		SDL_Delay(3000);
 		game->stopRunning();
 		std::cout << "Starting Cleanup" << std::endl; //debug
@@ -103,9 +103,11 @@ int main(int argc, char* argv[])
 		
 		delete death;
 	}
+
+	//If player wins
 	else if (combat->isSuccessful()) {
 		delete combat;
-		TransitionScreen* transition = new TransitionScreen(game->getRenderer(), game->getFont()); // Pass font from Game
+		TransitionScreen* transition = new TransitionScreen(game->getRenderer(), game->getFont());
 		currentScreen = transition;
 
 		// Show transition screen until user presses a key
@@ -119,12 +121,14 @@ int main(int argc, char* argv[])
 			}
 
 			currentScreen->update();
-			currentScreen->render(game->getRenderer()); // Use Game's renderer
+			currentScreen->render(game->getRenderer());
 
 			SDL_Delay(frameDelay);
 		}
 
 		delete transition;
+
+		//Second Combat Level
 		CombatScreenMed* combatmed = new CombatScreenMed(game->getRenderer(), game->getFont());
 		currentScreen = combatmed;
 
@@ -141,7 +145,7 @@ int main(int argc, char* argv[])
 		}
 		if (!combatmed->isSuccessful())
 		{
-			DeathScreen* death = new DeathScreen(game->getRenderer(), game->getFont()); // Pass font from Game
+			DeathScreen* death = new DeathScreen(game->getRenderer(), game->getFont());
 			currentScreen = death;
 			SDL_Event event;
 			while (SDL_PollEvent(&event)) {
@@ -152,7 +156,7 @@ int main(int argc, char* argv[])
 			}
 
 			currentScreen->update();
-			currentScreen->render(game->getRenderer()); // Use Game's renderer
+			currentScreen->render(game->getRenderer());
 			SDL_Delay(3000);
 			game->stopRunning();
 			std::cout << "Starting Cleanup" << std::endl; //debug
@@ -162,7 +166,9 @@ int main(int argc, char* argv[])
 		}
 		else if (combatmed->isSuccessful()) {
 			delete combatmed;
-			TransitionScreen2* transition = new TransitionScreen2(game->getRenderer(), game->getFont()); // Pass font from Game
+
+			//Second Transition
+			TransitionScreen2* transition = new TransitionScreen2(game->getRenderer(), game->getFont());
 			currentScreen = transition;
 
 			// Show transition screen until user presses a key
@@ -176,12 +182,14 @@ int main(int argc, char* argv[])
 				}
 
 				currentScreen->update();
-				currentScreen->render(game->getRenderer()); // Use Game's renderer
+				currentScreen->render(game->getRenderer());
 
 				SDL_Delay(frameDelay);
 			}
 
 			delete transition;
+
+			//Final Combat Level
 			CombatScreenHard* combathard = new CombatScreenHard(game->getRenderer(), game->getFont());
 			currentScreen = combathard;
 
@@ -198,7 +206,7 @@ int main(int argc, char* argv[])
 			}
 			if (!combathard->isSuccessful())
 			{
-				DeathScreen* death = new DeathScreen(game->getRenderer(), game->getFont()); // Pass font from Game
+				DeathScreen* death = new DeathScreen(game->getRenderer(), game->getFont());
 				currentScreen = death;
 				SDL_Event event;
 				while (SDL_PollEvent(&event)) {
@@ -209,7 +217,7 @@ int main(int argc, char* argv[])
 				}
 
 				currentScreen->update();
-				currentScreen->render(game->getRenderer()); // Use Game's renderer
+				currentScreen->render(game->getRenderer());
 				SDL_Delay(3000);
 				game->stopRunning();
 				std::cout << "Starting Cleanup" << std::endl; //debug
@@ -219,6 +227,8 @@ int main(int argc, char* argv[])
 			}
 			else if (combathard->isSuccessful()) {
 				delete combathard;
+
+				//Post Combat Story
 				SuccessScreens* successend = new SuccessScreens(game->getRenderer());
 				currentScreen = successend;
 

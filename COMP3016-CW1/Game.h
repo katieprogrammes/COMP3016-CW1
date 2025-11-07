@@ -8,9 +8,9 @@
 
 class Game {
 public:
-	Game(); //constructor
-	~Game(); //deconstructor
-	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen); //method for initialising
+	Game(); //Constructor
+	~Game(); //Deconstructor
+	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen); //Method for initialising
 	void handleEvents();
 	void update();
 	bool running() { return isRunning; }

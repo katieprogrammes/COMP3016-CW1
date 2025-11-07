@@ -9,15 +9,15 @@ public:
 
 	void draw();
 
-	// Reduces the health of current character by the attack damage of opponent
+	//Reduces the health of current character by the attack damage of opponent
 	void damaged(int baseDamage, AttackType playerMove);
 
 	void noAttack();
 
-	// Checks wether Character should attack now
+	//Checks wether Character should attack now
 	bool attackCheck();
 
-	// Checks if the character is dead
+	//Checks if the character is dead
 	bool isDead();
 
 	int getHP() const;
