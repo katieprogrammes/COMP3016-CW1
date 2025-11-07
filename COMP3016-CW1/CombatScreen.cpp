@@ -105,12 +105,12 @@ int CombatScreen::getPlayerMove(SDL_Event& event)
 void CombatScreen::update() {
     if (!waitingForInput && !player.isDead() && !enemy.isDead()) {
         AttackType move = static_cast<AttackType>(playerChoice - 1);
-        auto [effectiveness, damage] = player.attack(enemy, move);
+        auto [effectiveness, damage] = player.attack(enemy, move); //passing the effectiveness for logic
         Mix_PlayChannel(-1, hitSound, 0);
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, playerTexture, nullptr, &playerRect);
         SDL_RenderCopy(renderer, dmgEnemyTexture, nullptr, &dmgEnemyRect);
-        std::string feedback = "You used " + TypeMatchup::typeToString(move) +
+        std::string feedback = "You used " + TypeMatchup::typeToString(move) + //displaying effectiveness to player
             ". Damage dealt: " + std::to_string(damage);
         SDL_Color pink = { 255, 230, 247 };
         SDL_Color effectColor = TypeMatchup::effectColor(effectiveness);
@@ -131,7 +131,7 @@ void CombatScreen::update() {
         SDL_RenderCopy(renderer, dmgPlayerTexture, nullptr, &dmgPlayerRect);
         renderText("Enemy Turn: Enemy attacks!", 200, 500, { 255, 0, 0 });
         Mix_PlayChannel(-1, dmgSound, 0);
-        player.takeDamage(20);
+        player.takeDamage(20); //player takes fixed damage
         SDL_RenderPresent(renderer);
         SDL_Delay(1500);
 
